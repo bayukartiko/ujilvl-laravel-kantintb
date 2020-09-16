@@ -1,4 +1,4 @@
-@extends('layout/main')
+@extends('layout/AdminMain')
 
 <!DOCTYPE html>
 <html lang="en">
@@ -44,7 +44,7 @@
                   </div>
                   <form class="user">
                     <div class="form-group">
-                      <input type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address...">
+                      <input type="text" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Username...">
                     </div>
                     <div class="form-group">
                       <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
@@ -64,6 +64,9 @@
                   </div>
                   <div class="text-center">
                     <a class="small" href="{{ url('/register') }}">Create an Account!</a>
+                  </div>
+                  <div class="text-center mt-4">
+                    <a class="small text-danger" href="{{ url('/') }}">Back to main page</a>
                   </div>
                 </div>
               </div>
