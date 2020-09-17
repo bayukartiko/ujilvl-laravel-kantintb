@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminDataGoodsControl;
 use App\Http\Controllers\AdminDataMerchants;
 use Illuminate\Contracts\Cache\Store;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,56 +21,74 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-// admin bridge controller
-    // static controller
-        Route::get('/',  'AdminBridgeControl@main');
-        Route::get('/login', 'AdminBridgeControl@login');
-        Route::get('/register', 'AdminBridgeControl@register');
-        Route::get('/forgot_password', 'AdminBridgeControl@forgot_password');
-        Route::get('/dashboard', 'AdminBridgeControl@index');
+// login auth
+    Route::get('/login', 'AuthControl@getLogin')->middleware('guest')->name('login');
+    Route::post('/login', 'AuthControl@postLogin')->middleware('guest')->name('aksi.login');
+    Route::get('/forgot_password', function(){
+        return view('auth/forgot-password');
+    });
 
-// admin bridge makanan/goods controller
-    // static controller
-        Route::get('/dashboard/goods', 'AdminDataGoodsControl@index');
+    Route::get('/coba', function(){
+        return dd(Auth::user());
+    })->name('coba');
 
-    // data makanan/goods controller
-        // create
-            Route::get('/dashboard/addnewgoods', 'AdminDataGoodsControl@create');
-            Route::post('/goods/add', 'AdminDataGoodsControl@Store');
-        // detail
-            Route::get('/dashboard/goods/detail/{food}', 'AdminDataGoodsControl@show');
-        // edit
-            Route::get('/dashboard/goods/edit/{food}', 'AdminDataGoodsControl@edit');
-            Route::patch('/goods/update/{food}', 'AdminDataGoodsControl@update');
-        // delete
-            Route::get('/dashboard/goods/delete/{food}', 'AdminDataGoodsControl@destroy');
+    Route::get('/logout', 'AuthControl@logout')->middleware('auth');
 
-// admin bridge meja/seat controller
-    // static controller
-        Route::get('/dashboard/seats', 'AdminDataSeatsControl@index');
+// admin
+    // admin bridge controller
+        // static controller
+            Route::get('/',  'AdminBridgeControl@main');
+            Route::get('/adashboard', 'AdminBridgeControl@index')->middleware('auth');
 
-    // data meja/seats controller
-        // create
-            Route::get('/dashboard/addnewseats', 'AdminDataSeatsControl@create');
-            Route::post('/seats/add', 'AdminDataSeatsControl@Store');
-        // delete
-            Route::get('/dashboard/seats/delete/{seat}', 'AdminDataSeatsControl@destroy');
-            Route::get('/dashboard/seats/deactivate/{seat}', 'AdminDataSeatsControl@hapus_sementara');
-            Route::get('/dashboard/seats/activate/{seat}', 'AdminDataSeatsControl@kembalikan_sampah');
+    // admin bridge makanan/goods controller
+        // static controller
+            Route::get('/adashboard/goods', 'AdminDataGoodsControl@index');
 
-// admin bridge user controller
-    // static controller
-        Route::get('/dashboard/users', 'AdminDataUsersControl@index');
+        // data makanan/goods controller
+            // create
+                Route::get('/adashboard/addnewgoods', 'AdminDataGoodsControl@create');
+                Route::post('/goods/add', 'AdminDataGoodsControl@Store');
+            // detail
+                Route::get('/adashboard/goods/detail/{food}', 'AdminDataGoodsControl@show');
+            // edit
+                Route::get('/adashboard/goods/edit/{food}', 'AdminDataGoodsControl@edit');
+                Route::patch('/goods/update/{food}', 'AdminDataGoodsControl@update');
+            // delete
+                Route::get('/adashboard/goods/delete/{food}', 'AdminDataGoodsControl@destroy');
 
-    // data meja/users controller
-        // create
-            Route::get('/dashboard/addnewusers', 'AdminDataUsersControl@create');
-            Route::post('/users/add', 'AdminDataUsersControl@store');
-        // detail
-            Route::get('/dashboard/users/detail/{user}', 'AdminDataUsersControl@show');
-        // edit
-            Route::get('/dashboard/users/edit/{user}', 'AdminDataUsersControl@edit');
-            Route::patch('/users/update/{user}', 'AdminDataUsersControl@update');
-        // delete
-            Route::get('/dashboard/users/delete/{user}', 'AdminDataUsersControl@destroy');
+    // admin bridge meja/seat controller
+        // static controller
+            Route::get('/adashboard/seats', 'AdminDataSeatsControl@index');
+
+        // data meja/seats controller
+            // create
+                Route::get('/adashboard/addnewseats', 'AdminDataSeatsControl@create');
+                Route::post('/seats/add', 'AdminDataSeatsControl@Store');
+            // delete
+                Route::get('/adashboard/seats/delete/{seat}', 'AdminDataSeatsControl@destroy');
+                Route::get('/adashboard/seats/deactivate/{seat}', 'AdminDataSeatsControl@hapus_sementara');
+                Route::get('/adashboard/seats/activate/{seat}', 'AdminDataSeatsControl@kembalikan_sampah');
+
+    // admin bridge user controller
+        // static controller
+            Route::get('/adashboard/users', 'AdminDataUsersControl@index');
+
+        // data meja/users controller
+            // create
+                Route::get('/adashboard/addnewusers', 'AdminDataUsersControl@create');
+                Route::post('/users/add', 'AdminDataUsersControl@store');
+            // detail
+                Route::get('/adashboard/users/detail/{user}', 'AdminDataUsersControl@show');
+            // edit
+                Route::get('/adashboard/users/edit/{user}', 'AdminDataUsersControl@edit');
+                Route::patch('/users/update/{user}', 'AdminDataUsersControl@update');
+            // delete
+                Route::get('/adashboard/users/delete/{user}', 'AdminDataUsersControl@destroy');
+
+// waiter
+    // waiter bridge controller
+        // static controller
+            Route::get('/',  'WaiterBridgeControl@main');
+            Route::get('/wdashboard', 'WaiterBridgeControl@index')->middleware('auth');
+
 

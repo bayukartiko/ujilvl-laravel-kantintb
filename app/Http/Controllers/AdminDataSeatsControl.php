@@ -53,7 +53,7 @@ class AdminDataSeatsControl extends Controller
             'no_meja' => 'S-'.$request->nomeja,
         ]);
 
-        return redirect('/dashboard/seats')->with('success', "Data ->S-{$request->nomeja}<- was successfully added !");
+        return redirect('/adashboard/seats')->with('success', "Data ->S-{$request->nomeja}<- was successfully added !");
     }
 
     /**
@@ -100,18 +100,18 @@ class AdminDataSeatsControl extends Controller
     {
         $seat = Seat::withTrashed()->where('id',$seat);
         $seat->forceDelete();
-        return redirect('/dashboard/seats')->with('success', "Data was successfully deleted !");
+        return redirect('/adashboard/seats')->with('success', "Data was successfully deleted !");
     }
     public function hapus_sementara($seat)
     {
         $seat = Seat::withTrashed()->where('id',$seat);
         $seat->delete();
-        return redirect('/dashboard/seats')->with('success', "Data was successfully deactivated !");
+        return redirect('/adashboard/seats')->with('success', "Data was successfully deactivated !");
     }
     public function kembalikan_sampah($seat)
     {
         $seat = Seat::onlyTrashed()->where('id',$seat);
         $seat->restore();
-        return redirect('/dashboard/seats')->with('success', "Data was successfully activated !");
+        return redirect('/adashboard/seats')->with('success', "Data was successfully activated !");
     }
 }

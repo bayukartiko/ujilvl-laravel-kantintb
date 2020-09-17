@@ -61,7 +61,7 @@ class AdminDataGoodsControl extends Controller
             'status_masakan' => $request->statusmasakan
         ]);
 
-        return redirect('/dashboard/goods')->with('success', "Data ->{$request->namamasakan}<- was successfully added !");
+        return redirect('/adashboard/goods')->with('success', "Data ->{$request->namamasakan}<- was successfully added !");
     }
 
     /**
@@ -132,7 +132,7 @@ class AdminDataGoodsControl extends Controller
 
         Food::where('id', $food->id)->update($data);
 
-        return redirect('/dashboard/goods')->with('success', "Data ->{$request->namamasakan}<- was successfully edited !");
+        return redirect('/adashboard/goods')->with('success', "Data ->{$request->namamasakan}<- was successfully edited !");
     }
 
     /**
@@ -146,6 +146,6 @@ class AdminDataGoodsControl extends Controller
         // $makanan = Food::find($food);
         // $makanan->delete();
         $food->delete();
-        return redirect('/dashboard/goods')->with('success', "Data ->{$food->namamasakan}<- was successfully deleted !");
+        return redirect('/adashboard/goods')->with('success', "Data ->{$food->namamasakan}<- was successfully deleted !");
     }
 }

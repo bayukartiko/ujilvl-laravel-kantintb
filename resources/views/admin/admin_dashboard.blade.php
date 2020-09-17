@@ -27,7 +27,7 @@
                 <li class="nav-item dropdown no-arrow">
                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">Bayu Kartiko</span>
+                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->nama_user ?? '' }}</span>
                         <img class="img-profile rounded-circle" src="{{URL::asset('/img/profile_img/foto_diri.jpg')}}">
                     </a>
                     <!-- Dropdown - User Information -->
@@ -39,10 +39,6 @@
                     <a class="dropdown-item" href="#">
                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                         Profile
-                    </a>
-                    <a class="dropdown-item" href="#">
-                        <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                        Activity Log
                     </a>
 
                     <div class="dropdown-divider"></div>
@@ -63,7 +59,7 @@
 @section('konten')
     <h1 class="h3 mb-4 text-gray-800">Dashboard</h1>
     <!-- Content Row user -->
-        <a href="{{ url('/dashboard/users') }}">
+        <a href="{{ url('/adashboard/users') }}">
             <h2 class="text-center">- User Data -</h2>
         </a>
         <div class="row justify-content-center">
@@ -146,7 +142,7 @@
         </div>
     <hr>
     <!-- Content Row meja -->
-        <a href="{{ url('/dashboard/seats') }}">
+        <a href="{{ url('/adashboard/seats') }}">
             <h2 class="text-center">- Seats Data -</h2>
         </a>
         <div class="row justify-content-center">
@@ -210,7 +206,7 @@
         </div>
     <hr>
     {{-- content row barang --}}
-        <a href="{{ url('/dashboard/goods') }}">
+        <a href="{{ url('/adashboard/goods') }}">
             <h2 class="text-center">- Foods Data -</h2>
         </a>
         <div class="row justify-content-center">

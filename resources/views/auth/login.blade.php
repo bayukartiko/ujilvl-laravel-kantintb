@@ -1,5 +1,3 @@
-@extends('layout/AdminMain')
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -42,28 +40,54 @@
                   <div class="text-center">
                     <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                   </div>
-                  <form class="user">
-                    <div class="form-group">
-                      <input type="text" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Username...">
-                    </div>
-                    <div class="form-group">
-                      <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
-                    </div>
-                    <div class="form-group">
-                      <div class="custom-control custom-checkbox small">
-                        <input type="checkbox" class="custom-control-input" id="customCheck">
-                        <label class="custom-control-label" for="customCheck">Remember Me</label>
-                      </div>
-                    </div>
-                    <a href="{{ url('/dashboard') }}" class="btn btn-primary btn-user btn-block">
-                      Login
-                    </a>
+
+                    @if (session()->has('success'))
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            {{ session()->get('success') }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    @elseif(session()->has('fail'))
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            {{ session()->get('fail') }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    @endif
+
+                    <form class="user" method="POST" action="{{ route('aksi.login') }}">
+                        @csrf
+                        <div class="form-group">
+                            <input type="text" id="exampleInputEmail" name="username" class="form-control form-control-user {{ $errors->has('username') ? 'is-invalid' : '' }}" aria-describedby="emailHelp" placeholder="Enter Your Username" value="{{ old('username') }}">
+                            @if ($errors->has('username'))
+                                <div class="text-danger">
+                                    <small>{{ $errors->first('username')}}</small>
+                                </div>
+                            @endif
+                        </div>
+
+                        <div class="form-group">
+                            <input type="password" id="exampleInputPassword" name="password" class="form-control form-control-user input-password {{ $errors->has('password') ? 'is-invalid' : '' }}" placeholder="Enter Your Password">
+                            @if ($errors->has('password'))
+                                <div class="invalid-feedback">
+                                    {{ $errors->first('password') }}
+                                </div>
+                            @endif
+                        </div>
+
+                        <div class="form-group">
+                            <div class="custom-control custom-checkbox small">
+                                <input type="checkbox" class="custom-control-input input-checkbox" id="customCheck">
+                                <label class="custom-control-label" for="customCheck">Show Password</label>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-user btn-block">Login</button>
+                    </form>
                   <hr>
                   <div class="text-center">
                     <a class="small" href="{{ url('/forgot_password') }}">Forgot Password?</a>
-                  </div>
-                  <div class="text-center">
-                    <a class="small" href="{{ url('/register') }}">Create an Account!</a>
                   </div>
                   <div class="text-center mt-4">
                     <a class="small text-danger" href="{{ url('/') }}">Back to main page</a>
@@ -89,6 +113,18 @@
 
   <!-- Custom scripts for all pages-->
   <script src="js/sb-admin-2.min.js"></script>
+
+  <script>
+      $(document).ready(function(){
+            $('.input-checkbox').click(function(){
+                if($(this).is(':checked')){
+                    $('.input-password').attr('type','text');
+                }else{
+                    $('.input-password').attr('type','password');
+                }
+            });
+        });
+  </script>
 
 </body>
 

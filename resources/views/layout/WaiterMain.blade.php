@@ -56,7 +56,7 @@
 
                 <!-- Nav Item - Dashboard -->
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/adashboard') }}">
+                    <a class="nav-link" href="{{ url('/dashboard') }}">
                         <i class="fas fa-fw fa-tachometer-alt"></i>
                         <span>Dashboard</span>
                     </a>
@@ -71,23 +71,18 @@
                 </div> --}}
 
                 <!-- Nav Item - Utilities Collapse Menu -->
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/adashboard/users') }}">
-                        <i class="fas fa-fw fa-user-tie"></i>
-                        <span>Users</span>
-                    </a>
-                </li>
 
+                <!-- Nav Item - Pages Collapse Menu -->
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/adashboard/seats') }}">
-                        <i class="fas fa-fw fa-chair"></i>
-                        <span>Seats</span>
+                    <a class="nav-link" href="{{ url('/dashboard/goods') }}">
+                        <i class="fas fa-fw fa-cash-register"></i>
+                        <span>Order</span>
                     </a>
                 </li>
 
                 <!-- Nav Item - Pages Collapse Menu -->
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/adashboard/goods') }}">
+                    <a class="nav-link" href="{{ url('/dashboard/goods') }}">
                         <i class="fas fa-fw fa-cubes"></i>
                         <span>Foods</span>
                     </a>
@@ -159,7 +154,7 @@
             <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="{{ url('/logout') }}">Logout</a>
+                <a class="btn btn-primary" href="{{ url('/login') }}">Logout</a>
             </div>
         </div>
     </div>

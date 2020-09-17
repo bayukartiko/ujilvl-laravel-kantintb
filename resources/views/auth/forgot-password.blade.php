@@ -51,9 +51,6 @@
                   </form>
                   <hr>
                   <div class="text-center">
-                    <a class="small" href="{{ url('/register') }}">Create an Account!</a>
-                  </div>
-                  <div class="text-center">
                     <a class="small" href="{{ url('/login') }}">Already have an account? Login!</a>
                   </div>
                 </div>

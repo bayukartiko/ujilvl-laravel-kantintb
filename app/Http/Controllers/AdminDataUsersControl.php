@@ -56,13 +56,14 @@ class AdminDataUsersControl extends Controller
         // validation
             $rule_message = [
                 'username.required'=>'You cant leave Username field empty',
+                'username.unique'=>'This username has been registered',
                 'password.required'=>'You cant leave Password field empty',
                 'name.required'=>'You cant leave Fullname field empty',
                 'genderRadios.required'=>'You cant leave Gender field empty',
                 'role.required' =>'You cant leave User Role field empty'
             ];
             $rules = [
-                    'username' => 'required',
+                    'username' => 'required|unique:users,username',
                     'password' => 'required',
                     'name' => 'required',
                     'genderRadios' => 'required',
@@ -73,13 +74,13 @@ class AdminDataUsersControl extends Controller
 
         User::create([
             'username' => $request->username,
-            'password' => $request->password,
+            'password' => bcrypt($request->password),
             'nama_user' => $request->name,
             'jenis_kelamin' => $request->genderRadios,
             'id_level' => $request->role
         ]);
 
-        return redirect('/dashboard/users')->with('success', "Data ->{$request->username}<- was successfully added !");
+        return redirect('/adashboard/users')->with('success', "Data ->{$request->username}<- was successfully added !");
     }
 
     /**
@@ -118,13 +119,14 @@ class AdminDataUsersControl extends Controller
         // validation
             $rule_message = [
                 'username.required'=>'You cant leave Username field empty',
+                'username.unique'=>'This username has been registered',
                 'password.required'=>'You cant leave Password field empty',
                 'name.required'=>'You cant leave Fullname field empty',
                 'genderRadios.required'=>'You cant leave Gender field empty',
                 'role.required' =>'You cant leave User Role field empty'
             ];
             $rules = [
-                    'username' => 'required',
+                    'username' => 'required|unique:users,username',
                     'password' => 'required',
                     'name' => 'required',
                     'genderRadios' => 'required',
@@ -135,7 +137,7 @@ class AdminDataUsersControl extends Controller
 
         $data = [
             'username' => $request->username,
-            'password' => $request->password,
+            'password' => bcrypt($request->password),
             'nama_user' => $request->name,
             'jenis_kelamin' => $request->genderRadios,
             'id_level' => $request->role
@@ -143,7 +145,7 @@ class AdminDataUsersControl extends Controller
 
         User::where('id', $user->id)->update($data);
 
-        return redirect('/dashboard/users')->with('success', "Data ->{$request->username}<- was successfully edited !");
+        return redirect('/adashboard/users')->with('success', "Data ->{$request->username}<- was successfully edited !");
     }
 
     /**
@@ -155,6 +157,6 @@ class AdminDataUsersControl extends Controller
     public function destroy(User $user)
     {
         $user->delete();
-        return redirect('/dashboard/users')->with('success', "Data ->{$user->username}<- was successfully deleted !");
+        return redirect('/adashboard/users')->with('success', "Data ->{$user->username}<- was successfully deleted !");
     }
 }

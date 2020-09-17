@@ -14,7 +14,7 @@
         <!-- Topbar Breadcrumb -->
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb bg-transparent mt-3">
-                    <li class="breadcrumb-item"><a href="{{ url('/dashboard') }}">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="{{ url('/adashboard') }}">Dashboard</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Foods</li>
                 </ol>
             </nav>
@@ -28,7 +28,7 @@
                 <li class="nav-item dropdown no-arrow">
                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">Bayu Kartiko</span>
+                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->nama_user ?? '' }}</span>
                         <img class="img-profile rounded-circle" src="{{URL::asset('/img/profile_img/foto_diri.jpg')}}">
                     </a>
                     <!-- Dropdown - User Information -->
@@ -40,10 +40,6 @@
                     <a class="dropdown-item" href="#">
                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                         Profile
-                    </a>
-                    <a class="dropdown-item" href="#">
-                        <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                        Activity Log
                     </a>
 
                     <div class="dropdown-divider"></div>
@@ -112,7 +108,7 @@
          <!-- Card Header - Dropdown -->
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary">Foods Data</h6>
-                <a href="{{ url('/dashboard/addnewgoods') }}" class="btn btn-primary">Add New Foods</a>
+                <a href="{{ url('/adashboard/addnewgoods') }}" class="btn btn-primary">Add New Foods</a>
             </div>
         <div class="card-body">
 
@@ -143,9 +139,9 @@
                             <td>{{ $foods->jenis_masakan }}</td>
                             <td>{{ $foods->harga }}</td>
                             <td>
-                                <a href="{{ url('/dashboard/goods/detail/'.$foods->id) }}" class="btn btn-info">Detail</a>
-                                <a href="{{ url('/dashboard/goods/edit/'.$foods->id) }}" class="btn btn-secondary">Edit</a>
-                                <a href="{{ url('/dashboard/goods/delete/'.$foods->id) }}" class="btn btn-danger" onclick="return confirm('sure? you will delete data permanently.');">Delete</a>
+                                <a href="{{ url('/adashboard/goods/detail/'.$foods->id) }}" class="btn btn-info">Detail</a>
+                                <a href="{{ url('/adashboard/goods/edit/'.$foods->id) }}" class="btn btn-secondary">Edit</a>
+                                <a href="{{ url('/adashboard/goods/delete/'.$foods->id) }}" class="btn btn-danger" onclick="return confirm('sure? you will delete data permanently.');">Delete</a>
                             </td>
                         </tr>
                     @endforeach

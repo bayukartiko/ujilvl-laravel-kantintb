@@ -7,7 +7,7 @@ use App\Seat;
 use App\Food;
 use Illuminate\Http\Request;
 
-class AdminBridgeControl extends Controller
+class WaiterBridgeControl extends Controller
 {
     public function main(){
         return view('homeweb');
@@ -37,6 +37,6 @@ class AdminBridgeControl extends Controller
             'hitung_owner' => $owner
         ];
 
-        return view('admin/admin_dashboard', $data);
+        return view('waiter/waiter_dashboard', $data);
     }
 }
