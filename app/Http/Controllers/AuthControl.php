@@ -25,19 +25,20 @@ class AuthControl extends Controller
 
         if (!Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
             return redirect()->back()->with('fail', "Wrong username or password !");
+        }else{
+            if (Auth::user()->id_level == 1) {
+                return redirect('/adashboard');
+            } elseif(Auth::user()->id_level == 2) {
+                return redirect('/wdashboard');
+            } elseif(Auth::user()->id_level == 3) {
+                return redirect('/kdashboard');
+            } elseif(Auth::user()->id_level == 4){
+                return redirect('/odashboard');
+            }else{
+                return "role tidak dikenali";
+            }
         }
 
-        if (Auth::user()->id_level == 1) {
-            return redirect('/adashboard');
-        } elseif(Auth::user()->id_level == 2) {
-            return redirect('/wdashboard');
-        } elseif(Auth::user()->id_level == 3) {
-            return redirect('/kdashboard');
-        } elseif(Auth::user()->id_level == 4){
-            return redirect('/odashboard');
-        }else{
-            return "role tidak dikenali";
-        }
     }
 
     public function logout(){

@@ -6,6 +6,7 @@ use App\User;
 use App\Seat;
 use App\Food;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminBridgeControl extends Controller
 {
@@ -37,6 +38,10 @@ class AdminBridgeControl extends Controller
             'hitung_owner' => $owner
         ];
 
-        return view('admin/admin_dashboard', $data);
+        if (Auth::user()->id_level == 1) {
+            return view('admin/admin_dashboard', $data);
+        }else{
+            return redirect()->back();
+        }
     }
 }

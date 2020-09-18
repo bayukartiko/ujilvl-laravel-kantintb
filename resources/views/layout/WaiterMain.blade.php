@@ -19,6 +19,11 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/rowreorder/1.2.7/css/rowReorder.bootstrap4.min.css">
 
+    <!-- select2 -->
+	<!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.css" rel="stylesheet"/> -->
+	<link href="{{ asset('select2/dist/css/select2.min.css') }}" rel="stylesheet" />
+	<link href="{{ asset('select2-bootstrap4/dist/select2-bootstrap4.min.css') }}" rel="stylesheet" />
+
     <!-- Custom styles for this template-->
     <link href="{{asset('css/sb-admin-2.min.css')}}" rel="stylesheet">
     <style>
@@ -56,7 +61,7 @@
 
                 <!-- Nav Item - Dashboard -->
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/dashboard') }}">
+                    <a class="nav-link" href="{{ url('/wdashboard') }}">
                         <i class="fas fa-fw fa-tachometer-alt"></i>
                         <span>Dashboard</span>
                     </a>
@@ -74,7 +79,7 @@
 
                 <!-- Nav Item - Pages Collapse Menu -->
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/dashboard/goods') }}">
+                    <a class="nav-link" href="{{ url('/wdashboard/orders') }}">
                         <i class="fas fa-fw fa-cash-register"></i>
                         <span>Order</span>
                     </a>
@@ -82,7 +87,7 @@
 
                 <!-- Nav Item - Pages Collapse Menu -->
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/dashboard/goods') }}">
+                    <a class="nav-link" href="{{ url('/wdashboard/goods') }}">
                         <i class="fas fa-fw fa-cubes"></i>
                         <span>Foods</span>
                     </a>
@@ -154,7 +159,7 @@
             <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="{{ url('/login') }}">Logout</a>
+                <a class="btn btn-primary" href="{{ url('/logout') }}">Logout</a>
             </div>
         </div>
     </div>
@@ -176,6 +181,10 @@
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
 	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/rowreorder/1.2.7/js/dataTables.rowReorder.min.js"></script>
 
+    <!-- select2 -->
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.js"></script> -->
+    <script src="{{ asset('select2/dist/js/select2.min.js') }}"></script>
+
     <script>
         $(document).ready( function () {
             $('.alert').alert();
@@ -196,6 +205,22 @@
                     $('#show_hide_password i').addClass( "fa-eye" );
                 }
             });
+
+            // select2
+                $('#nomeja').select2({
+                    width: '100%',
+                    // allowClear: true,
+                    closeOnSelect: true,
+                    theme: 'bootstrap4'
+                });
+                $('#namamasakan').select2({
+                    width: '100%',
+                    // allowClear: true,
+                    closeOnSelect: true,
+                    theme: 'bootstrap4'
+                });
+
+            
 
         });
     </script>

@@ -6,9 +6,12 @@ use App\User;
 use App\Seat;
 use App\Food;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class WaiterBridgeControl extends Controller
 {
+
     public function main(){
         return view('homeweb');
     }
@@ -25,6 +28,8 @@ class WaiterBridgeControl extends Controller
         $kasir = User::where('id_level', 3)->count();
         $owner = User::where('id_level', 4)->count();
 
+        $food = Food::all();
+
         $data = [
             'hitung_meja' => $hitung_meja,
             'hitung_meja_aktif' => $hitung_meja_aktif,
@@ -34,9 +39,16 @@ class WaiterBridgeControl extends Controller
             'hitung_admin' => $admin,
             'hitung_waiter' => $waiter,
             'hitung_kasir' => $kasir,
-            'hitung_owner' => $owner
+            'hitung_owner' => $owner,
+            'food' => $food
         ];
 
-        return view('waiter/waiter_dashboard', $data);
+        if (Auth::user()->id_level == 2) {
+            return view('waiter/waiter_dashboard', $data);
+        }else{
+            return redirect()->back();
+        }
+
     }
+    
 }

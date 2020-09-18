@@ -34,7 +34,7 @@
                     <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                     aria-labelledby="userDropdown">
                     <a class="dropdown-item text-center" href="#">
-                        <button type="button" class="btn btn-outline-primary">Admin</button>
+                        <button type="button" class="btn btn-outline-primary">Waiter</button>
                     </a>
                     <a class="dropdown-item" href="#">
                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -61,113 +61,21 @@
 @endsection
 
 @section('konten')
-    <h1 class="h3 mb-4 text-gray-800">Dashboard</h1>
-    <!-- Content Row meja -->
-        <a href="{{ url('/wdashboard/seats') }}">
-            <h2 class="text-center">- Seats Data -</h2>
-        </a>
-        <div class="row justify-content-center">
-
-            <!-- semua meja -->
-                <div class="col-xl-3 col-md-6 mb-4">
-                    <div class="card border-left-primary shadow h-100 py-2">
+    <div class="row">
+        <h1 class="h3 mb-4 text-gray-800">Dashboard</h1>
+    </div>
+    <div class="row row-cols-1 row-cols-md-4 justify-content-center" style="margin: auto;">
+        @foreach ($food as $foods)
+            <div class="col mb-4">
+                <div class="card h-100 text-center" style="width: 14rem;">
+                    <img src="{{asset('img/bg/image.png')}}" class="card-img-top mt-3 mb-3" style="width: 50px; height: 50px; margin:auto;">
                     <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Available Seats</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                {{$hitung_meja}}
-                            </div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-fw fa-2x text-gray-300 fa-chair"></i>
-                        </div>
-                        </div>
+                        <h5 class="card-title">{{ $foods->nama_masakan }}</h5>
+                        <p class="card-text">Rp. <?= number_format( $foods->harga ,2,',','.') ?></p>
+                        <a href="/wdashboard/addneworders" class="btn btn-primary main_btn">Order</a>
                     </div>
-                    </div>
-                </div>
-
-            <!-- semua meja aktif -->
-                <div class="col-xl-3 col-md-6 mb-4">
-                    <div class="card border-left-primary shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Seats Activated</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                {{$hitung_meja_aktif}}
-                            </div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-fw fa-2x text-gray-300 fa-chair"></i>
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-
-            <!-- semua meja tidak aktif -->
-                <div class="col-xl-3 col-md-6 mb-4">
-                    <div class="card border-left-primary shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Seats Disabled</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                {{$hitung_meja_notaktif}}
-                            </div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-fw fa-2x text-gray-300 fa-chair"></i>
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-        </div>
-    <hr>
-    {{-- content row barang --}}
-        <a href="{{ url('/wdashboard/goods') }}">
-            <h2 class="text-center">- Foods Data -</h2>
-        </a>
-        <div class="row justify-content-center">
-
-            <!-- food -->
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-primary shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Available Foods</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                            {{$hitung_makanan}}
-                        </div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-fw fa-2x text-gray-300 fa-hamburger"></i>
-                    </div>
-                    </div>
-                </div>
                 </div>
             </div>
-
-            {{-- drink --}}
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-primary shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Available Drinks</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                            {{$hitung_minuman}}
-                        </div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-fw fa-2x text-gray-300 fa-coffee"></i>
-                    </div>
-                    </div>
-                </div>
-                </div>
-            </div>
-        </div>
+        @endforeach
+    </div>
 @endsection
