@@ -15,17 +15,35 @@ class GoodsCRUDcontrol extends Controller
     // admin
         public function aindex(){
             $makanan = Food::all();
-            $hitung_makanan = Food::where('jenis_masakan', 'food')->count();
-            $hitung_minuman = Food::where('jenis_masakan', 'drink')->count();
-            return view('admin/m_goods', ['makanan' => $makanan, 'hitung_makanan' => $hitung_makanan, 'hitung_minuman' => $hitung_minuman]);
+            $hitung_makanan_tersedia = Food::where('jenis_masakan', 'food')->where('status_masakan', 'available')->count();
+            $hitung_makanan_habis = Food::where('jenis_masakan', 'food')->where('status_masakan', 'run out')->count();
+            $hitung_minuman_tersedia = Food::where('jenis_masakan', 'drink')->where('status_masakan', 'available')->count();
+            $hitung_minuman_habis = Food::where('jenis_masakan', 'drink')->where('status_masakan', 'run out')->count();
+            $data = [
+                'makanan' => $makanan,
+                'hitung_makanan_tersedia' => $hitung_makanan_tersedia,
+                'hitung_makanan_habis' => $hitung_makanan_habis,
+                'hitung_minuman_tersedia' => $hitung_minuman_tersedia,
+                'hitung_minuman_habis' => $hitung_minuman_habis
+            ];
+            return view('admin/m_goods', $data);
         }
 
     // waiter
         public function windex(){
             $makanan = Food::all();
-            $hitung_makanan = Food::where('jenis_masakan', 'food')->count();
-            $hitung_minuman = Food::where('jenis_masakan', 'drink')->count();
-            return view('waiter/m_goods', ['makanan' => $makanan, 'hitung_makanan' => $hitung_makanan, 'hitung_minuman' => $hitung_minuman]);
+            $hitung_makanan_tersedia = Food::where('jenis_masakan', 'food')->where('status_masakan', 'available')->count();
+            $hitung_makanan_habis = Food::where('jenis_masakan', 'food')->where('status_masakan', 'run out')->count();
+            $hitung_minuman_tersedia = Food::where('jenis_masakan', 'drink')->where('status_masakan', 'available')->count();
+            $hitung_minuman_habis = Food::where('jenis_masakan', 'drink')->where('status_masakan', 'run out')->count();
+            $data = [
+                'makanan' => $makanan,
+                'hitung_makanan_tersedia' => $hitung_makanan_tersedia,
+                'hitung_makanan_habis' => $hitung_makanan_habis,
+                'hitung_minuman_tersedia' => $hitung_minuman_tersedia,
+                'hitung_minuman_habis' => $hitung_minuman_habis
+            ];
+            return view('waiter/m_goods', $data);
         }
 
     /**
@@ -114,14 +132,14 @@ class GoodsCRUDcontrol extends Controller
     // admin
         public function ashow(Food $food){
             $tipemasakan = ['food', 'drink'];
-            $statusmasakan = ['new', 'old'];
+            $statusmasakan = ['available', 'run out'];
             return view('admin/d_goods', ['makanan' => $food, 'tipemasakan' => $tipemasakan, 'statusmasakan' => $statusmasakan]);
         }
 
     // waiter
         public function wshow(Food $food){
             $tipemasakan = ['food', 'drink'];
-            $statusmasakan = ['new', 'old'];
+            $statusmasakan = ['available', 'run out'];
             return view('waiter/d_goods', ['makanan' => $food, 'tipemasakan' => $tipemasakan, 'statusmasakan' => $statusmasakan]);
         }
     /**
@@ -134,7 +152,7 @@ class GoodsCRUDcontrol extends Controller
         public function aedit(Food $food){
             // dd($food);
             $tipemasakan = ['food', 'drink'];
-            $statusmasakan = ['new', 'old'];
+            $statusmasakan = ['available', 'run out'];
             return view('admin/e_goods', ['makanan' => $food, 'tipemasakan' => $tipemasakan, 'statusmasakan' => $statusmasakan]);
         }
 
@@ -142,7 +160,7 @@ class GoodsCRUDcontrol extends Controller
         public function wedit(Food $food){
             // dd($food);
             $tipemasakan = ['food', 'drink'];
-            $statusmasakan = ['new', 'old'];
+            $statusmasakan = ['available', 'run out'];
             return view('waiter/e_goods', ['makanan' => $food, 'tipemasakan' => $tipemasakan, 'statusmasakan' => $statusmasakan]);
         }
 

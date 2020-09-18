@@ -1,4 +1,4 @@
-@extends('layout/AdminMain')
+@extends('layout/WaiterMain')
 
 @section('title', 'Detail Foods')
 
@@ -14,8 +14,8 @@
         <!-- Topbar Breadcrumb -->
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb bg-transparent mt-3">
-                    <li class="breadcrumb-item"><a href="{{ url('/adashboard') }}">Dashboard</a></li>
-                    <li class="breadcrumb-item"><a href="{{ url('/adashboard/goods') }}">Foods</a></li>
+                    <li class="breadcrumb-item"><a href="{{ url('/wdashboard') }}">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="{{ url('/wdashboard/goods') }}">Foods</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Detail Foods</li>
                 </ol>
             </nav>
@@ -107,7 +107,7 @@
                             {{-- <a href="{{ url('/adashboard/goods') }}" class="btn btn-danger float-right">Cancel</a> --}}
                         </div>
                         <div class="col-sm-10">
-                            <a href="{{ url('/adashboard/goods') }}" class="btn btn-primary">Understand</a>
+                            <a href="{{ url('/wdashboard/goods') }}" class="btn btn-primary">Understand</a>
                         </div>
                     </div>
                 </div>

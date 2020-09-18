@@ -1,4 +1,4 @@
-@extends('layout/AdminMain')
+@extends('layout/WaiterMain')
 
 @section('title', 'Add New Foods')
 
@@ -14,12 +14,12 @@
         <!-- Topbar Breadcrumb -->
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb bg-transparent mt-3">
-                    <li class="breadcrumb-item"><a href="{{ url('/adashboard') }}">Dashboard</a></li>
-                    <li class="breadcrumb-item"><a href="{{ url('/adashboard/goods') }}">Foods</a></li>
+                    <li class="breadcrumb-item"><a href="{{ url('/wdashboard') }}">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="{{ url('/wdashboard/goods') }}">Foods</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Add New Foods</li>
                 </ol>
             </nav>
-            
+
 @endsection
 
 @section('konten')
@@ -95,7 +95,7 @@
                 </div>
                 <div class="form-group row">
                     <div class="col-sm-2">
-                        <a href="{{ url('/adashboard/goods') }}" class="btn btn-danger float-right">Cancel</a>
+                        <a href="{{ url('/wdashboard/goods') }}" class="btn btn-danger float-right">Cancel</a>
                     </div>
                     <div class="col-sm-10">
                         <button type="submit" class="btn btn-primary">Submit</button>

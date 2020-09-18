@@ -1,6 +1,6 @@
 @extends('layout/WaiterMain')
 
-@section('title', 'Orders')
+@section('title', 'Foods')
 
 @section('topbar')
 
@@ -15,69 +15,87 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb bg-transparent mt-3">
                     <li class="breadcrumb-item"><a href="{{ url('/wdashboard') }}">Dashboard</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Orders</li>
+                    <li class="breadcrumb-item active" aria-current="page">Foods</li>
                 </ol>
             </nav>
 
 @endsection
 
 @section('konten')
-    <h1 class="h3 mb-4 text-gray-800">Orders Management</h1>
+    <h1 class="h3 mb-4 text-gray-800">Foods Management</h1>
 
      <!-- Content Row -->
     <div class="row">
 
-        <!-- order -->
+        <!-- food -->
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card border-left-primary shadow h-100 py-2">
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                 <div class="col mr-2">
-                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Orders</div>
+                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Available Foods</div>
                     <div class="h5 mb-0 font-weight-bold text-gray-800">
-                        {{$hitung_order}}
+                        {{$hitung_makanan_tersedia}}
                     </div>
                 </div>
                 <div class="col-auto">
-                    <i class="fas fa-fw fa-2x text-gray-300 fa-cash-register"></i>
+                    <i class="fas fa-fw fa-2x text-gray-300 fa-hamburger"></i>
                 </div>
                 </div>
             </div>
             </div>
         </div>
 
-        {{-- order belum selesai --}}
+        {{-- drink --}}
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card border-left-primary shadow h-100 py-2">
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                 <div class="col mr-2">
-                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Orders Are Being Processed</div>
+                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Available Drinks</div>
                     <div class="h5 mb-0 font-weight-bold text-gray-800">
-                        {{$order_belumselesai}}
+                        {{$hitung_minuman_tersedia}}
                     </div>
                 </div>
                 <div class="col-auto">
-                    <i class="fas fa-fw fa-2x text-gray-300 fa-cash-register"></i>
+                    <i class="fas fa-fw fa-2x text-gray-300 fa-coffee"></i>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        <!-- food -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-danger shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Foods run out</div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                        {{$hitung_makanan_habis}}
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <i class="fas fa-fw fa-2x text-gray-300 fa-hamburger"></i>
                 </div>
                 </div>
             </div>
             </div>
         </div>
 
-        {{-- order diterima --}}
+        {{-- drink --}}
         <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card border-left-danger shadow h-100 py-2">
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                 <div class="col mr-2">
-                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">orders has been received</div>
+                    <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Drinks run out</div>
                     <div class="h5 mb-0 font-weight-bold text-gray-800">
-                        {{$order_selesai}}
+                        {{$hitung_minuman_habis}}
                     </div>
                 </div>
                 <div class="col-auto">
-                    <i class="fas fa-fw fa-2x text-gray-300 fa-cash-register"></i>
+                    <i class="fas fa-fw fa-2x text-gray-300 fa-coffee"></i>
                 </div>
                 </div>
             </div>
@@ -90,8 +108,8 @@
     <div class="card shadow mb-4">
          <!-- Card Header - Dropdown -->
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">Orders Data</h6>
-                <a href="{{ url('/wdashboard/addneworders') }}" class="btn btn-primary float-right">Add New Order</a>
+                <h6 class="m-0 font-weight-bold text-primary">Foods Data</h6>
+                <a href="{{ url('/wdashboard/addnewgoods') }}" class="btn btn-primary">Add New Foods</a>
             </div>
         <div class="card-body">
 
@@ -108,41 +126,27 @@
                 <thead class="thead-dark">
                     <tr>
                         <th>No</th>
-                        <th>Order date</th>
-                        <th>Seat Number</th>
+                        <th>Food Name</th>
+                        <th>Type of Food</th>
+                        <th>Price</th>
                         <th>Status</th>
-                        <th>Quantity</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($order as $orders)
+                    @foreach ($makanan as $foods)
                         <tr>
                             <td scope="row">{{ $loop->iteration }}</td>
+                            <td>{{ $foods->nama_masakan }}</td>
+                            <td>{{ $foods->jenis_masakan }}</td>
+                            <td>{{ $foods->harga }}</td>
                             <td>
-                                {{$orders->tanggal}}
+                                <button class="btn btn-outline-success">{{$foods->status_masakan}}</button>
                             </td>
                             <td>
-                                @foreach ($meja as $seats)
-                                    @if ($orders->id_meja == $seats->id)
-                                        {{$seats->no_meja}}
-                                    @endif
-                                @endforeach
-                            </td>
-                            <td>
-                                <button class="btn btn-outline-success">
-                                    {{$orders->status_order}}
-                                </button>
-                            </td>
-                            <td>
-                                @foreach ($detail_order as $orderdetails)
-                                    @if ($orders->id == $orderdetails->id_order)
-                                        {{$orderdetails->jumlah}}
-                                    @endif
-                                @endforeach
-                            </td>
-                            <td>
-                                <a href="{{ url('/wdashboard/orders/detail/'.$orders->id) }}" class="btn btn-primary">Detail</a>
+                                <a href="{{ url('/wdashboard/goods/detail/'.$foods->id) }}" class="btn btn-info">Detail</a>
+                                <a href="{{ url('/wdashboard/goods/edit/'.$foods->id) }}" class="btn btn-secondary">Edit</a>
+                                <a href="{{ url('/wdashboard/goods/delete/'.$foods->id) }}" class="btn btn-danger" onclick="return confirm('sure? you will delete data permanently.');">Delete</a>
                             </td>
                         </tr>
                     @endforeach
@@ -150,10 +154,10 @@
                 <tfoot class="thead-dark">
                     <tr>
                         <th>No</th>
-                        <th>Order date</th>
-                        <th>Seat Number</th>
+                        <th>Food Name</th>
+                        <th>Type of Food</th>
+                        <th>Price</th>
                         <th>Status</th>
-                        <th>Quantity</th>
                         <th>Action</th>
                     </tr>
                 </tfoot>

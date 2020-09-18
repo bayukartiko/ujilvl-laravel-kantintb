@@ -19,88 +19,89 @@
                 </ol>
             </nav>
 
-        <!-- Topbar Navbar -->
-            <ul class="navbar-nav ml-auto">
-
-                <div class="topbar-divider d-none d-sm-block"></div>
-
-                <!-- Nav Item - User Information -->
-                <li class="nav-item dropdown no-arrow">
-                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->nama_user ?? '' }}</span>
-                        <img class="img-profile rounded-circle" src="{{URL::asset('/img/profile_img/foto_diri.jpg')}}">
-                    </a>
-                    <!-- Dropdown - User Information -->
-                    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                    aria-labelledby="userDropdown">
-                    <a class="dropdown-item text-center" href="#">
-                        <button type="button" class="btn btn-outline-primary">Admin</button>
-                    </a>
-                    <a class="dropdown-item" href="#">
-                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                        Profile
-                    </a>
-
-                    <div class="dropdown-divider"></div>
-
-                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                        Logout
-                    </a>
-                </div>
-            </li>
-
-        </ul>
-
-    </nav>
-
 @endsection
 
 @section('konten')
     <h1 class="h3 mb-4 text-gray-800">Foods Management</h1>
 
      <!-- Content Row -->
-    <div class="row">
+        <div class="row">
 
-        <!-- food -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-primary shadow h-100 py-2">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                <div class="col mr-2">
-                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Available Foods</div>
-                    <div class="h5 mb-0 font-weight-bold text-gray-800">
-                        {{$hitung_makanan}}
+            <!-- food -->
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Available Foods</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            {{$hitung_makanan_tersedia}}
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-fw fa-2x text-gray-300 fa-hamburger"></i>
+                    </div>
                     </div>
                 </div>
-                <div class="col-auto">
-                    <i class="fas fa-fw fa-2x text-gray-300 fa-hamburger"></i>
-                </div>
                 </div>
             </div>
-            </div>
-        </div>
 
-        {{-- drink --}}
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-primary shadow h-100 py-2">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                <div class="col mr-2">
-                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Available Drinks</div>
-                    <div class="h5 mb-0 font-weight-bold text-gray-800">
-                        {{$hitung_minuman}}
+            {{-- drink --}}
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Available Drinks</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            {{$hitung_minuman_tersedia}}
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-fw fa-2x text-gray-300 fa-coffee"></i>
+                    </div>
                     </div>
                 </div>
-                <div class="col-auto">
-                    <i class="fas fa-fw fa-2x text-gray-300 fa-coffee"></i>
+                </div>
+            </div>
+            <!-- food -->
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-danger shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Foods run out</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            {{$hitung_makanan_habis}}
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-fw fa-2x text-gray-300 fa-hamburger"></i>
+                    </div>
+                    </div>
                 </div>
                 </div>
             </div>
+
+            {{-- drink --}}
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-danger shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Drinks run out</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            {{$hitung_minuman_habis}}
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-fw fa-2x text-gray-300 fa-coffee"></i>
+                    </div>
+                    </div>
+                </div>
+                </div>
             </div>
         </div>
-    </div>
 
       <!-- Content Row -->
 
@@ -128,6 +129,7 @@
                         <th>Food Name</th>
                         <th>Type of Food</th>
                         <th>Price</th>
+                        <th>Status</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -138,6 +140,9 @@
                             <td>{{ $foods->nama_masakan }}</td>
                             <td>{{ $foods->jenis_masakan }}</td>
                             <td>{{ $foods->harga }}</td>
+                            <td>
+                                <button class="btn btn-outline-success">{{$foods->status_masakan}}</button>
+                            </td>
                             <td>
                                 <a href="{{ url('/adashboard/goods/detail/'.$foods->id) }}" class="btn btn-info">Detail</a>
                                 <a href="{{ url('/adashboard/goods/edit/'.$foods->id) }}" class="btn btn-secondary">Edit</a>
@@ -152,6 +157,7 @@
                         <th>Food Name</th>
                         <th>Type of Food</th>
                         <th>Price</th>
+                        <th>Status</th>
                         <th>Action</th>
                     </tr>
                 </tfoot>

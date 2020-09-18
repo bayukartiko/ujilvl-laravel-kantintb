@@ -36,7 +36,7 @@ class OrdersCRUDcontrol extends Controller
             'hitung_order' => $hitung_order,
             'order_selesai' => $hitung_order_selesai,
             'order_belumselesai' => $hitung_order_belumselesai,
-            'makanan' => Food::all()
+            'makanan' => Food::where('status_masakan', 'available')
         ];
 
         return view('waiter/m_order', $data);
@@ -50,7 +50,7 @@ class OrdersCRUDcontrol extends Controller
     public function create()
     {
         $meja = Seat::all();
-        $makanan = Food::all();
+        $makanan = Food::where('status_masakan', 'available')->get();
         $mentah = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 		$mentah_acak = substr(str_shuffle($mentah), 0, 15);
         $data = [

@@ -107,3 +107,19 @@ use Illuminate\Support\Facades\Route;
             // delete
                 Route::get('/wdashboard/orders/delete/{order}', 'OrdersCRUDcontrol@adestroy')->middleware('auth');
 
+    // waiter bridge makanan/goods
+        // static controller
+            Route::get('/wdashboard/goods', 'GoodsCRUDcontrol@windex')->middleware('auth');
+
+        // data makanan/goods controller
+            // create
+                Route::get('/wdashboard/addnewgoods', 'GoodsCRUDcontrol@wcreate')->middleware('auth');
+                Route::post('/goods/add', 'GoodsCRUDcontrol@wstore')->middleware('auth');
+            // detail
+                Route::get('/wdashboard/goods/detail/{food}', 'GoodsCRUDcontrol@wshow')->middleware('auth');
+            // edit
+                Route::get('/wdashboard/goods/edit/{food}', 'GoodsCRUDcontrol@wedit')->middleware('auth');
+                Route::patch('/goods/update/{food}', 'GoodsCRUDcontrol@wupdate')->middleware('auth');
+            // delete
+                Route::get('/wdashboard/goods/delete/{food}', 'GoodsCRUDcontrol@wdestroy')->middleware('auth');
+
