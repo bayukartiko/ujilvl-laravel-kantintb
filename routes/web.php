@@ -123,3 +123,25 @@ use Illuminate\Support\Facades\Route;
             // delete
                 Route::get('/wdashboard/goods/delete/{food}', 'GoodsCRUDcontrol@wdestroy')->middleware('auth');
 
+// kasir
+    // kasir bridge controller
+        // static controller
+            Route::get('/',  'KasirBridgeControl@main');
+            Route::get('/kdashboard', 'KasirBridgeControl@index')->middleware('auth');
+
+    // admin bridge makanan/goods controller
+        // static controller
+            Route::get('/kdashboard/transactions', 'TransactionCRUDcontrol@index')->middleware('auth');
+
+        // data transactions controller
+            // create
+                Route::get('/kdashboard/addnewtransactions', 'TransactionCRUDcontrol@create')->middleware('auth');
+                Route::post('/transactions/add', 'TransactionCRUDcontrol@store')->middleware('auth');
+            // detail
+                Route::get('/kdashboard/transactions/detail/{transaction}', 'TransactionCRUDcontrol@show')->middleware('auth');
+            // edit
+                Route::get('/kdashboard/transactions/payment/{order}', 'TransactionCRUDcontrol@edit')->middleware('auth');
+                Route::patch('/transactions/pay/{order}', 'TransactionCRUDcontrol@update')->middleware('auth');
+            // delete
+                Route::get('/kdashboard/transactions/delete/{transaction}', 'TransactionCRUDcontrol@destroy')->middleware('auth');
+
