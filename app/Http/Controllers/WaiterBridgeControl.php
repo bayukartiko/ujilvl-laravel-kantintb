@@ -13,6 +13,11 @@ class WaiterBridgeControl extends Controller
 {
 
     public function main(){
+        // if (Auth::user()->id_level == 2) {
+        //     return redirect()->back();
+        // }else{
+        //     return view('homeweb');
+        // }
         return view('homeweb');
     }
     public function index(){
@@ -50,5 +55,5 @@ class WaiterBridgeControl extends Controller
         }
 
     }
-    
+
 }

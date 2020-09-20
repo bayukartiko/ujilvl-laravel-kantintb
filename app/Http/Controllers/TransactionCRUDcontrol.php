@@ -18,33 +18,35 @@ class TransactionCRUDcontrol extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index(){
+        if (Auth::user()->id_level == 3) {
+            $user = User::all();
+            $order = Order::all();
+            $meja = Seat::all();
+            $detail_order = Orderdetail::all();
+            $hitung_order = Order::all()->count();
+            $order_detail = Orderdetail::all();
+            $hitung_order_selesai = Order::where('status_order', 'done')->count();
+            $hitung_order_belumselesai = Order::where('status_order', 'unfinished')->count();
+            $hitung_order_masuk = Order::where('status_order', 'unfinished')->count();
+            $hitung_order_selesai = Order::where('status_order', 'done')->count();
 
-        $user = User::all();
-        $order = Order::all();
-        $meja = Seat::all();
-        $detail_order = Orderdetail::all();
-        $hitung_order = Order::all()->count();
-        $order_detail = Orderdetail::all();
-        $hitung_order_selesai = Order::where('status_order', 'done')->count();
-        $hitung_order_belumselesai = Order::where('status_order', 'unfinished')->count();
-        $hitung_order_masuk = Order::where('status_order', 'unfinished')->count();
-        $hitung_order_selesai = Order::where('status_order', 'done')->count();
-
-        $data = [
-            'user' => $user,
-            'hitung_order_masuk' => $hitung_order_masuk,
-            'hitung_order_selesai' => $hitung_order_selesai,
-            'order' => $order,
-            'meja' => $meja,
-            'detail_order' => $detail_order,
-            'hitung_order' => $hitung_order,
-            'order_selesai' => $hitung_order_selesai,
-            'order_belumselesai' => $hitung_order_belumselesai,
-            'makanan' => Food::all()
-        ];
-        return view('kasir/m_transaksi', $data);
+            $data = [
+                'user' => $user,
+                'hitung_order_masuk' => $hitung_order_masuk,
+                'hitung_order_selesai' => $hitung_order_selesai,
+                'order' => $order,
+                'meja' => $meja,
+                'detail_order' => $detail_order,
+                'hitung_order' => $hitung_order,
+                'order_selesai' => $hitung_order_selesai,
+                'order_belumselesai' => $hitung_order_belumselesai,
+                'makanan' => Food::all()
+            ];
+            return view('kasir/m_transaksi', $data);
+        }else{
+            return redirect()->back();
+        }
     }
 
     /**
@@ -85,21 +87,24 @@ class TransactionCRUDcontrol extends Controller
      * @param  \App\Transaction  $transaction
      * @return \Illuminate\Http\Response
      */
-    public function edit(Order $order)
-    {
-        $meja = Seat::all();
-        $user = User::all();
-        $orderdetail = Orderdetail::where('id_order', $order->id)->first();
-        $makanan = Food::where('status_masakan', 'available')->get();
-        $data = [
-            'meja' => $meja,
-            'user' => $user,
-            'order' => $order,
-            'makanan' => $makanan,
-            'orderdetail' => $orderdetail,
-        ];
+    public function edit(Order $order){
+        if (Auth::user()->id_level == 3) {
+            $meja = Seat::all();
+            $user = User::all();
+            $orderdetail = Orderdetail::where('id_order', $order->id)->first();
+            $makanan = Food::where('status_masakan', 'available')->get();
+            $data = [
+                'meja' => $meja,
+                'user' => $user,
+                'order' => $order,
+                'makanan' => $makanan,
+                'orderdetail' => $orderdetail,
+            ];
 
-        return view('kasir/d_transaksi', $data);
+            return view('kasir/d_transaksi', $data);
+        }else{
+            return redirect()->back();
+        }
     }
 
     /**
@@ -109,30 +114,33 @@ class TransactionCRUDcontrol extends Controller
      * @param  \App\Transaction  $transaction
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Order $order)
-    {
-        // validation
-            $rule_message = [
-                'tunai.required'=>'You cant leave cash money field empty'
-            ];
-            $rules = [
-                    'tunai' => 'required'
+    public function update(Request $request, Order $order){
+        if (Auth::user()->id_level == 3) {
+            // validation
+                $rule_message = [
+                    'tunai.required'=>'You cant leave cash money field empty'
                 ];
+                $rules = [
+                        'tunai' => 'required'
+                    ];
 
-            $this->validate($request, $rules, $rule_message);
+                $this->validate($request, $rules, $rule_message);
 
-        Order::where('id', $order->id)->update([
-            'status_order' => 'done'
-        ]);
+            Order::where('id', $order->id)->update([
+                'status_order' => 'done'
+            ]);
 
-        Transaction::create([
-            'id_user' => Auth::user()->id,
-            'id_order' => $order->id,
-            'tanggal' => date("Y/m/d"),
-            'total_bayar' => $request->tunai
-        ]);
+            Transaction::create([
+                'id_user' => Auth::user()->id,
+                'id_order' => $order->id,
+                'tanggal' => date("Y/m/d"),
+                'total_bayar' => $request->tunai
+            ]);
 
-        return redirect('/kdashboard/transactions')->with('success', "Order ->{$request->namamasakan}<- has been successfully paid !");
+            return redirect('/kdashboard/transactions')->with('success', "Order ->{$request->namamasakan}<- has been successfully paid !");
+        }else{
+            return redirect()->back();
+        }
     }
 
     /**

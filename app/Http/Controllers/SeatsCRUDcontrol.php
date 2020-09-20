@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Seat;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SeatsCRUDcontrol extends Controller
 {
@@ -12,13 +13,16 @@ class SeatsCRUDcontrol extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $meja = Seat::withTrashed()->get();
-        $hitung_meja = Seat::withTrashed()->count();
-        $hitung_meja_aktif = Seat::all()->count();
-        $hitung_meja_notaktif = Seat::onlyTrashed()->count();
-        return view('admin/m_seats', ['meja' => $meja, 'hitung_meja' => $hitung_meja, 'hitung_meja_aktif' => $hitung_meja_aktif, 'hitung_meja_notaktif' => $hitung_meja_notaktif]);
+    public function index(){
+        if (Auth::user()->id_level == 1) {
+            $meja = Seat::withTrashed()->get();
+            $hitung_meja = Seat::withTrashed()->count();
+            $hitung_meja_aktif = Seat::all()->count();
+            $hitung_meja_notaktif = Seat::onlyTrashed()->count();
+            return view('admin/m_seats', ['meja' => $meja, 'hitung_meja' => $hitung_meja, 'hitung_meja_aktif' => $hitung_meja_aktif, 'hitung_meja_notaktif' => $hitung_meja_notaktif]);
+        }else{
+            return redirect()->back();
+        }
     }
 
     /**
@@ -26,9 +30,12 @@ class SeatsCRUDcontrol extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        return view('admin/t_seats');
+    public function create(){
+        if (Auth::user()->id_level == 1) {
+            return view('admin/t_seats');
+        }else{
+            return redirect()->back();
+        }
     }
 
     /**
@@ -37,23 +44,26 @@ class SeatsCRUDcontrol extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        // validation
-            $rule_message = [
-                'nomeja.required'=>'You cant leave Seat Number field empty'
-            ];
-            $rules = [
-                    'nomeja' => 'required'
+    public function store(Request $request){
+        if (Auth::user()->id_level == 1) {
+            // validation
+                $rule_message = [
+                    'nomeja.required'=>'You cant leave Seat Number field empty'
                 ];
+                $rules = [
+                        'nomeja' => 'required'
+                    ];
 
-            $this->validate($request, $rules, $rule_message);
+                $this->validate($request, $rules, $rule_message);
 
-        Seat::create([
-            'no_meja' => 'S-'.$request->nomeja,
-        ]);
+            Seat::create([
+                'no_meja' => 'S-'.$request->nomeja,
+            ]);
 
-        return redirect('/adashboard/seats')->with('success', "Data ->S-{$request->nomeja}<- was successfully added !");
+            return redirect('/adashboard/seats')->with('success', "Data ->S-{$request->nomeja}<- was successfully added !");
+        }else{
+            return redirect()->back();
+        }
     }
 
     /**
@@ -96,22 +106,31 @@ class SeatsCRUDcontrol extends Controller
      * @param  \App\Seat  $seat
      * @return \Illuminate\Http\Response
      */
-    public function destroy($seat)
-    {
-        $seat = Seat::withTrashed()->where('id',$seat);
-        $seat->forceDelete();
-        return redirect('/adashboard/seats')->with('success', "Data was successfully deleted !");
+    public function destroy($seat){
+        if (Auth::user()->id_level == 1) {
+            $seat = Seat::withTrashed()->where('id',$seat);
+            $seat->forceDelete();
+            return redirect('/adashboard/seats')->with('success', "Data was successfully deleted !");
+        }else{
+            return redirect()->back();
+        }
     }
-    public function hapus_sementara($seat)
-    {
-        $seat = Seat::withTrashed()->where('id',$seat);
-        $seat->delete();
-        return redirect('/adashboard/seats')->with('success', "Data was successfully deactivated !");
+    public function hapus_sementara($seat){
+        if (Auth::user()->id_level == 1) {
+            $seat = Seat::withTrashed()->where('id',$seat);
+            $seat->delete();
+            return redirect('/adashboard/seats')->with('success', "Data was successfully deactivated !");
+        }else{
+            return redirect()->back();
+        }
     }
-    public function kembalikan_sampah($seat)
-    {
-        $seat = Seat::onlyTrashed()->where('id',$seat);
-        $seat->restore();
-        return redirect('/adashboard/seats')->with('success', "Data was successfully activated !");
+    public function kembalikan_sampah($seat){
+        if (Auth::user()->id_level == 1) {
+            $seat = Seat::onlyTrashed()->where('id',$seat);
+            $seat->restore();
+            return redirect('/adashboard/seats')->with('success', "Data was successfully activated !");
+        }else{
+            return redirect()->back();
+        }
     }
 }
