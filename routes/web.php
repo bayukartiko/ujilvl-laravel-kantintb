@@ -47,12 +47,12 @@ use Illuminate\Support\Facades\Route;
         // data makanan/goods controller
             // create
                 Route::get('/adashboard/addnewgoods', 'GoodsCRUDcontrol@acreate')->middleware('auth');
-                Route::post('/goods/add', 'GoodsCRUDcontrol@astore')->middleware('auth');
+                Route::post('/agoods/add', 'GoodsCRUDcontrol@astore')->middleware('auth');
             // detail
                 Route::get('/adashboard/goods/detail/{food}', 'GoodsCRUDcontrol@ashow')->middleware('auth');
             // edit
                 Route::get('/adashboard/goods/edit/{food}', 'GoodsCRUDcontrol@aedit')->middleware('auth');
-                Route::patch('/goods/update/{food}', 'GoodsCRUDcontrol@aupdate')->middleware('auth');
+                Route::patch('/agoods/update/{food}', 'GoodsCRUDcontrol@aupdate')->middleware('auth');
             // delete
                 Route::get('/adashboard/goods/delete/{food}', 'GoodsCRUDcontrol@adestroy')->middleware('auth');
 
@@ -114,7 +114,7 @@ use Illuminate\Support\Facades\Route;
         // data makanan/goods controller
             // create
                 Route::get('/wdashboard/addnewgoods', 'GoodsCRUDcontrol@wcreate')->middleware('auth');
-                Route::post('/goods/add', 'GoodsCRUDcontrol@wstore')->middleware('auth');
+                Route::post('/wgoods/add', 'GoodsCRUDcontrol@wstore')->middleware('auth');
             // detail
                 Route::get('/wdashboard/goods/detail/{food}', 'GoodsCRUDcontrol@wshow')->middleware('auth');
             // edit
@@ -122,6 +122,7 @@ use Illuminate\Support\Facades\Route;
                 Route::patch('/goods/update/{food}', 'GoodsCRUDcontrol@wupdate')->middleware('auth');
             // delete
                 Route::get('/wdashboard/goods/delete/{food}', 'GoodsCRUDcontrol@wdestroy')->middleware('auth');
+
 
 // kasir
     // kasir bridge controller

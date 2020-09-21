@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Food;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class GoodsCRUDcontrol extends Controller
 {
@@ -86,28 +87,42 @@ class GoodsCRUDcontrol extends Controller
      */
     // admin
         public function astore(Request $request){
+            // dd($request->file('gambarmasakan'));
             if (Auth::user()->id_level == 1) {
                 // validation
                     $rule_message = [
                         'namamasakan.required'=>'You cant leave Food Name field empty',
                         'tipemasakan.required'=>'You cant leave Type of Food field empty',
+                        'gambarmasakan.required'=>'You cant leave Food Image field empty',
                         'hargamasakan.required'=>'You cant leave Food Price field empty',
-                        'statusmasakan.required'=>'You cant leave Food Status field empty'
+                        'stokmasakan.required'=>'You cant leave Food Stock field empty',
+                        'infomasakan.required'=>'You cant leave Food Information field empty'
                     ];
                     $rules = [
                             'namamasakan' => 'required',
                             'tipemasakan' => 'required',
+                            'gambarmasakan' => 'required',
                             'hargamasakan' => 'required',
-                            'statusmasakan' => 'required'
+                            'stokmasakan' => 'required',
+                            'infomasakan' => 'required'
                         ];
 
                     $this->validate($request, $rules, $rule_message);
 
+                if($request->stokmasakan > 0){
+                    $status = "available";
+                }else{
+                    $status = "run out";
+                }
+
                 Food::create([
                     'nama_masakan' => $request->namamasakan,
                     'jenis_masakan' => $request->tipemasakan,
+                    'gambar' => $request->file('gambarmasakan')->store('imgmasakan'),
                     'harga' => $request->hargamasakan,
-                    'status_masakan' => $request->statusmasakan
+                    'stok' => $request->stokmasakan,
+                    'keterangan' => $request->infomasakan,
+                    'status_masakan' => $status
                 ]);
 
                 return redirect('/adashboard/goods')->with('success', "Data ->{$request->namamasakan}<- was successfully added !");
@@ -123,23 +138,36 @@ class GoodsCRUDcontrol extends Controller
                     $rule_message = [
                         'namamasakan.required'=>'You cant leave Food Name field empty',
                         'tipemasakan.required'=>'You cant leave Type of Food field empty',
+                        'gambarmasakan.required'=>'You cant leave Food Image field empty',
                         'hargamasakan.required'=>'You cant leave Food Price field empty',
-                        'statusmasakan.required'=>'You cant leave Food Status field empty'
+                        'stokmasakan.required'=>'You cant leave Food Stock field empty',
+                        'infomasakan.required'=>'You cant leave Food Information field empty'
                     ];
                     $rules = [
                             'namamasakan' => 'required',
                             'tipemasakan' => 'required',
+                            'gambarmasakan' => 'required',
                             'hargamasakan' => 'required',
-                            'statusmasakan' => 'required'
+                            'stokmasakan' => 'required',
+                            'infomasakan' => 'required'
                         ];
 
                     $this->validate($request, $rules, $rule_message);
 
+                if($request->stokmasakan > 0){
+                    $status = "available";
+                }else{
+                    $status = "run out";
+                }
+
                 Food::create([
                     'nama_masakan' => $request->namamasakan,
                     'jenis_masakan' => $request->tipemasakan,
+                    'gambar' => $request->file('gambarmasakan')->store('imgmasakan'),
                     'harga' => $request->hargamasakan,
-                    'status_masakan' => $request->statusmasakan
+                    'stok' => $request->stokmasakan,
+                    'keterangan' => $request->infomasakan,
+                    'status_masakan' => $status
                 ]);
 
                 return redirect('/wdashboard/goods')->with('success', "Data ->{$request->namamasakan}<- was successfully added !");
@@ -220,22 +248,46 @@ class GoodsCRUDcontrol extends Controller
                         'namamasakan.required'=>'You cant leave Food Name field empty',
                         'tipemasakan.required'=>'You cant leave Type of Food field empty',
                         'hargamasakan.required'=>'You cant leave Food Price field empty',
-                        'statusmasakan.required'=>'You cant leave Food Status field empty'
+                        'stokmasakan.required'=>'You cant leave Food Stock field empty',
+                        'infomasakan.required'=>'You cant leave Food Information field empty'
                     ];
                     $rules = [
                             'namamasakan' => 'required',
                             'tipemasakan' => 'required',
                             'hargamasakan' => 'required',
-                            'statusmasakan' => 'required'
+                            'stokmasakan' => 'required',
+                            'infomasakan' => 'required'
                         ];
 
                     $this->validate($request, $rules, $rule_message);
 
+                // hapus gambar di storange
+                // dd($request->food->gambar);
+                if($request->file('gambarmasakan')){
+                    if ($request->food->gambar) {
+                        Storage::delete($request->food->gambar);
+                        $gambar = $request->file('gambarmasakan')->store('imgmasakan');
+                    }
+                }else{
+                    $gambar = $food->gambar;
+                }
+
+                // dd($request->file('gambarmasakan'));
+
+                if($request->stokmasakan > 0){
+                    $status = "available";
+                }else{
+                    $status = "run out";
+                }
+
                 $data = [
                     'nama_masakan' => $request->namamasakan,
                     'jenis_masakan' => $request->tipemasakan,
+                    'gambar' => $gambar,
                     'harga' => $request->hargamasakan,
-                    'status_masakan' => $request->statusmasakan
+                    'stok' => $request->stokmasakan,
+                    'keterangan' => $request->infomasakan,
+                    'status_masakan' => $status
                 ];
 
                 Food::where('id', $food->id)->update($data);
@@ -253,26 +305,52 @@ class GoodsCRUDcontrol extends Controller
                 $rule_message = [
                     'namamasakan.required'=>'You cant leave Food Name field empty',
                     'tipemasakan.required'=>'You cant leave Type of Food field empty',
+                    'gambarmasakan.required'=>'You cant leave Food Image field empty',
                     'hargamasakan.required'=>'You cant leave Food Price field empty',
-                    'statusmasakan.required'=>'You cant leave Food Status field empty'
+                    'stokmasakan.required'=>'You cant leave Food Stock field empty',
+                    'infomasakan.required'=>'You cant leave Food Information field empty'
                 ];
                 $rules = [
                         'namamasakan' => 'required',
                         'tipemasakan' => 'required',
+                        'gambarmasakan' => 'required',
                         'hargamasakan' => 'required',
-                        'statusmasakan' => 'required'
+                        'stokmasakan' => 'required',
+                        'infomasakan' => 'required'
                     ];
 
                 $this->validate($request, $rules, $rule_message);
 
-                $data = [
-                    'nama_masakan' => $request->namamasakan,
-                    'jenis_masakan' => $request->tipemasakan,
-                    'harga' => $request->hargamasakan,
-                    'status_masakan' => $request->statusmasakan
-                ];
+            // hapus gambar di storange
+            // dd($request->food->gambar);
+            if($request->file('gambarmasakan')){
+                if ($request->food->gambar) {
+                    Storage::delete($request->food->gambar);
+                    $gambar = $request->file('gambarmasakan')->store('imgmasakan');
+                }
+            }else{
+                $gambar = $food->gambar;
+            }
 
-                Food::where('id', $food->id)->update($data);
+            // dd($request->file('gambarmasakan'));
+
+            if($request->stokmasakan > 0){
+                $status = "available";
+            }else{
+                $status = "run out";
+            }
+
+            $data = [
+                'nama_masakan' => $request->namamasakan,
+                'jenis_masakan' => $request->tipemasakan,
+                'gambar' => $gambar,
+                'harga' => $request->hargamasakan,
+                'stok' => $request->stokmasakan,
+                'keterangan' => $request->infomasakan,
+                'status_masakan' => $status
+            ];
+
+            Food::where('id', $food->id)->update($data);
 
                 return redirect('/wdashboard/goods')->with('success', "Data ->{$request->namamasakan}<- was successfully edited !");
             }else{
@@ -289,8 +367,12 @@ class GoodsCRUDcontrol extends Controller
     // admin
         public function adestroy(Food $food){
             if (Auth::user()->id_level == 1) {
+                if ($food->gambar) {
+                    Storage::delete($food->gambar);
+                }
+
                 $food->delete();
-                return redirect('/adashboard/goods')->with('success', "Data ->{$food->namamasakan}<- was successfully deleted !");
+                return redirect('/adashboard/goods')->with('success', "Data ->{$food->nama_masakan}<- was successfully deleted !");
             }else{
                 return redirect()->back();
             }
@@ -299,8 +381,12 @@ class GoodsCRUDcontrol extends Controller
     // waiter
         public function wdestroy(Food $food){
             if (Auth::user()->id_level == 2) {
+                if ($food->gambar) {
+                    Storage::delete($food->gambar);
+                }
+
                 $food->delete();
-                return redirect('/wdashboard/goods')->with('success', "Data ->{$food->namamasakan}<- was successfully deleted !");
+                return redirect('/wdashboard/goods')->with('success', "Data ->{$food->nama_masakan}<- was successfully deleted !");
             }else{
                 return redirect()->back();
             }

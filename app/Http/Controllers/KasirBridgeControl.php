@@ -46,4 +46,7 @@ class KasirBridgeControl extends Controller
             return redirect()->back();
         }
     }
+    public function kcetak_pdf(Request $request){
+        
+    }
 }

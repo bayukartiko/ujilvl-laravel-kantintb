@@ -55,5 +55,8 @@ class WaiterBridgeControl extends Controller
         }
 
     }
+    public function wcetak_pdf(Request $request){
+
+    }
 
 }

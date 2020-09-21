@@ -36,79 +36,65 @@
 
                     @csrf
 
-                    <div class="form-group row">
-                        <label for="namamasakan" class="col-sm-2 col-form-label">Food Name</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="namamasakan" name="namamasakan" placeholder="Input Food Name" value="{{ $makanan->nama_masakan }}">
-                            @if($errors->has('namamasakan'))
-                                <div class="text-danger">
-                                    <small>{{ $errors->first('namamasakan')}}</small>
-                                </div>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="tipemasakan" class="col-sm-2 col-form-label">Type of Food</label>
-                        <div class="col-sm-10">
-                            <select name="tipemasakan" id="tipemasakan" class="form-control">
-                                @foreach ($tipemasakan as $type)
-                                    @if ($type == $makanan->jenis_masakan)
-                                        <option value="{{ $type }}" selected>{{ $type }}</option>
-                                    @else
-                                        <option value="{{ $type }}">{{ $type }}</option>
-                                    @endif
-                                @endforeach
-                            </select>
-                            @if($errors->has('tipemasakan'))
-                                <div class="text-danger">
-                                    <small>{{ $errors->first('tipemasakan')}}</small>
-                                </div>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="hargamasakan" class="col-sm-2 col-form-label">Food Price</label>
-                        <div class="col-sm-10">
-                            <div class="input-group input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="inputGroup-sizing-sm">Rp</span>
-                                </div>
-                                <input type="number" class="form-control" id="hargamasakan" name="hargamasakan" placeholder="Input Food Price" value="{{ $makanan->harga }}">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="namamasakan" class="col-form-label">Food Name</label>
+                                    <input type="text" class="form-control" id="namamasakan" name="namamasakan" placeholder="Input Food Name" value="{{ $makanan->nama_masakan }}">
                             </div>
-                            @if($errors->has('hargamasakan'))
-                                <div class="text-danger">
-                                    <small>{{ $errors->first('hargamasakan')}}</small>
-                                </div>
-                            @endif
+                            <div class="form-group">
+                                <label for="tipemasakan" class="col-form-label">Type of Food</label>
+                                    <select name="tipemasakan" id="tipemasakan" class="form-control">
+                                        @foreach ($tipemasakan as $type)
+                                            @if ($type == $makanan->jenis_masakan)
+                                                <option value="{{ $type }}" selected>{{ $type }}</option>
+                                            @else
+                                                <option value="{{ $type }}">{{ $type }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="hargamasakan" class="col-form-label">Food Price</label>
+                                    <div class="input-group input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="inputGroup-sizing-sm">Rp</span>
+                                        </div>
+                                        <input type="number" class="form-control" id="hargamasakan" name="hargamasakan" placeholder="Input Food Price" value="{{ $makanan->harga }}">
+                                    </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="stokmasakan" class="col-form-label">Food Stock</label>
+                                    <input type="number" class="form-control" id="stokmasakan" name="stokmasakan" placeholder="Enter Food Stock" value="{{ $makanan->stok }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="statusmasakan" class="col-form-label">Food Status</label>
+                                    <select name="statusmasakan" id="statusmasakan" class="form-control">
+                                        @foreach ($statusmasakan as $status)
+                                            @if ($status == $makanan->status_masakan)
+                                                <option value="{{ $status }}" selected>{{ $status }}</option>
+                                            @else
+                                                <option value="{{ $status }}">{{ $status }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group row">
+                                <img src="{{ URL::asset('storage/'.$makanan->gambar) }}" class="img-fluid img-thumbnail rounded mx-auto">
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="statusmasakan" class="col-sm-2 col-form-label">Food Status</label>
-                        <div class="col-sm-10">
-                            <select name="statusmasakan" id="statusmasakan" class="form-control">
-                                @foreach ($statusmasakan as $status)
-                                    @if ($status == $makanan->status_masakan)
-                                        <option value="{{ $status }}" selected>{{ $status }}</option>
-                                    @else
-                                        <option value="{{ $status }}">{{ $status }}</option>
-                                    @endif
-                                @endforeach
-                            </select>
-                            @if($errors->has('statusmasakan'))
-                                <div class="text-danger">
-                                    <small>{{ $errors->first('statusmasakan')}}</small>
-                                </div>
-                            @endif
-                        </div>
+
+                    <div class="form-group">
+                        <label for="infomasakan" class="col-form-label">Food Information</label>
+                        <textarea name="infomasakan" id="infomasakan" cols="30" rows="5" class="form-control" placeholder="Enter food information">{{ $makanan->keterangan }}</textarea>
                     </div>
+
                 </fieldset>
-                    <div class="form-group row">
-                        <div class="col-sm-2">
-                            {{-- <a href="{{ url('/adashboard/goods') }}" class="btn btn-danger float-right">Cancel</a> --}}
-                        </div>
-                        <div class="col-sm-10">
-                            <a href="{{ url('/adashboard/goods') }}" class="btn btn-primary">Understand</a>
-                        </div>
+                    <div class="form-group">
+                        <a href="{{ url('/adashboard/goods') }}" class="btn btn-primary">Understand</a>
                     </div>
                 </div>
             </div>
