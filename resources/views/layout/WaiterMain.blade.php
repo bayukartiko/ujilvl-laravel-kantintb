@@ -122,7 +122,7 @@
                                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->nama_user ?? '' }}</span>
-                                    <img class="img-profile rounded-circle" src="{{URL::asset('/img/profile_img/foto_diri.jpg')}}">
+                                    <img class="img-profile rounded-circle" src="{{ URL::asset('storage/'.Auth::user()->avatar) }}">
                                 </a>
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -130,7 +130,7 @@
                                     <a class="dropdown-item text-center" href="#">
                                         <button type="button" class="btn btn-outline-primary">Waiter</button>
                                     </a>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" href="{{ url('/wdashboard/profil') }}">
                                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Profile
                                     </a>
@@ -222,6 +222,11 @@
     <script>
         $(document).ready( function () {
             $('.alert').alert();
+
+            $('.custom-file-input').on('change', function(){
+				let filename = $(this).val().split('\\').pop();
+				$(this).next('.custom-file-label').addClass("selected").html(filename);
+			});
 
             $('#table').DataTable({
                 rowReorder: true

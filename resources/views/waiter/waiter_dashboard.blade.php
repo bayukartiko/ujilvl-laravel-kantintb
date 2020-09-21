@@ -17,7 +17,7 @@
                     <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
                 </ol>
             </nav>
-            
+
 @endsection
 
 @section('konten')
@@ -28,7 +28,7 @@
         @foreach ($food as $foods)
             <div class="col mb-4">
                 <div class="card h-100 text-center" style="width: 14rem;">
-                    <img src="{{asset('img/bg/image.png')}}" class="card-img-top mt-3 mb-3" style="width: 50px; height: 50px; margin:auto;">
+                    <img src="{{ URL::asset('storage/'.$foods->gambar) }}" class="card-img-top" style="display: inline-block;" height="200px" width="200px">
                     <div class="card-body">
                         <h5 class="card-title">{{ $foods->nama_masakan }}</h5>
                         <p class="card-text">Rp. <?= number_format( $foods->harga ,2,',','.') ?></p>

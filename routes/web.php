@@ -39,6 +39,8 @@ use Illuminate\Support\Facades\Route;
         // static controller
             Route::get('/',  'AdminBridgeControl@main');
             Route::get('/adashboard', 'AdminBridgeControl@index')->middleware('auth');
+            Route::get('/adashboard/profil', 'AdminBridgeControl@profil')->middleware('auth');
+            Route::patch('/aprofil/update/{user}', 'AdminBridgeControl@updateprofil')->middleware('auth');
 
     // admin bridge makanan/goods controller
         // static controller
@@ -90,6 +92,8 @@ use Illuminate\Support\Facades\Route;
         // static controller
             Route::get('/',  'WaiterBridgeControl@main');
             Route::get('/wdashboard', 'WaiterBridgeControl@index')->middleware('auth');
+            Route::get('/wdashboard/profil', 'WaiterBridgeControl@profil')->middleware('auth');
+            Route::patch('/wprofil/update/{user}', 'WaiterBridgeControl@updateprofil')->middleware('auth');
 
     // waiter bridge order
         // static controller
@@ -129,6 +133,8 @@ use Illuminate\Support\Facades\Route;
         // static controller
             Route::get('/',  'KasirBridgeControl@main');
             Route::get('/kdashboard', 'KasirBridgeControl@index')->middleware('auth');
+            Route::get('/kdashboard/profil', 'KasirBridgeControl@profil')->middleware('auth');
+            Route::patch('/kprofil/update/{user}', 'KasirBridgeControl@updateprofil')->middleware('auth');
 
     // admin bridge makanan/goods controller
         // static controller
