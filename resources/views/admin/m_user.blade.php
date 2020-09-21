@@ -147,9 +147,13 @@
                                 @endforeach
                             </td>
                             <td>
-                                <a href="{{ url('/adashboard/users/detail/'.$users->id) }}" class="btn btn-info">Detail</a>
-                                <a href="{{ url('/adashboard/users/edit/'.$users->id) }}" class="btn btn-secondary">Edit</a>
-                                <a href="{{ url('/adashboard/users/delete/'.$users->id) }}" class="btn btn-danger" onclick="return confirm('sure? you will delete data permanently.');">Delete</a>
+                                @if (Auth::user()->id == $users->id)
+                                    <button class="btn btn-outline-primary">this account is to you</button>
+                                @else
+                                    <a href="{{ url('/adashboard/users/detail/'.$users->id) }}" class="btn btn-info">Detail</a>
+                                    <a href="{{ url('/adashboard/users/edit/'.$users->id) }}" class="btn btn-secondary">Edit</a>
+                                    <a href="{{ url('/adashboard/users/delete/'.$users->id) }}" class="btn btn-danger" onclick="return confirm('sure? you will delete data permanently.');">Delete</a>
+                                @endif
                             </td>
                         </tr>
                     @endforeach

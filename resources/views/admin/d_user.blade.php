@@ -36,93 +36,80 @@
 
                     @csrf
 
-                    <div class="form-group row">
-                        <label for="username" class="col-sm-2 col-form-label">Username</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="username" name="username" placeholder="Enter Username" value="{{ $user->username }}">
-                            @if($errors->has('username'))
-                                <div class="text-danger">
-                                    <small>{{ $errors->first('username')}}</small>
-                                </div>
-                            @endif
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="username" class="col-form-label">Username</label>
+                                    <input type="text" class="form-control" id="username" name="username" placeholder="Enter Username" value="{{ $user->username }}" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="name" class="col-form-label">User Fullname</label>
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter Fullname" value="{{ $user->nama_user }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="genderRadiosMale" class="col-form-label">Gender</label>
+                                    @if ($user->jenis_kelamin == "male")
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="genderRadios" id="genderRadiosMale" value="male" checked>
+                                            <label class="form-check-label" for="genderRadiosMale">
+                                            Male
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="genderRadios" id="genderRadiosFemale" value="female">
+                                            <label class="form-check-label" for="genderRadiosFemale">
+                                            Female
+                                            </label>
+                                        </div>
+                                    @else
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="genderRadios" id="genderRadiosMale" value="male">
+                                            <label class="form-check-label" for="genderRadiosMale">
+                                            Male
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="genderRadios" id="genderRadiosFemale" value="female" checked>
+                                            <label class="form-check-label" for="genderRadiosFemale">
+                                            Female
+                                            </label>
+                                        </div>
+                                    @endif
+                            </div>
+                            <div class="form-group">
+                                <label for="alamat" class="col-form-label">Address</label>
+                                    <textarea class="form-control" id="alamat" name="alamat" cols="10" rows="5" placeholder="Enter user address">{{ $user->alamat }}</textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="nohp" class="col-form-label">Phone number</label>
+                                    <input type="number" class="form-control" id="nohp" name="nohp" cols="10" rows="5" placeholder="Enter phone number" value="{{ $user->nohp }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="pp" class="col-form-label">Profile Picture</label>
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="pp" name="pp" aria-describedby="inputGroupFileAddon01">
+                                        <label class="custom-file-label" for="pp">Choose file</label>
+                                    </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 text-center">
+                            <img src="{{ URL::asset('storage/'.$user->avatar) }}" class="center-bloock img-fluid img-thumbnail" style="display: inline-block;">
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="name" class="col-sm-2 col-form-label">User Fullname</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter Fullname" value="{{ $user->nama_user }}">
-                            @if($errors->has('name'))
-                                <div class="text-danger">
-                                    <small>{{ $errors->first('name')}}</small>
-                                </div>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="genderRadiosMale" class="col-sm-2 col-form-label">Gender</label>
-                        <div class="col-sm-10">
-                            @if ($user->jenis_kelamin == "male")
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="genderRadios" id="genderRadiosMale" value="male" checked>
-                                    <label class="form-check-label" for="genderRadiosMale">
-                                    Male
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="genderRadios" id="genderRadiosFemale" value="female">
-                                    <label class="form-check-label" for="genderRadiosFemale">
-                                    Female
-                                    </label>
-                                </div>
-                            @else
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="genderRadios" id="genderRadiosMale" value="male">
-                                    <label class="form-check-label" for="genderRadiosMale">
-                                    Male
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="genderRadios" id="genderRadiosFemale" value="female" checked>
-                                    <label class="form-check-label" for="genderRadiosFemale">
-                                    Female
-                                    </label>
-                                </div>
-                            @endif
-                            @if($errors->has('genderRadios'))
-                                <div class="text-danger">
-                                    <small>{{ $errors->first('genderRadios')}}</small>
-                                </div>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="role" class="col-sm-2 col-form-label">Role</label>
-                        <div class="col-sm-10">
+
+                    <div class="form-group">
+                        <label for="role" class="col-form-label">Role</label>
                             <select name="role" id="role" class="form-control">
-                                <option value="" selected disabled>> Select user role <</option>
                                 @foreach ($level as $levels)
                                     @if ($levels->id == $user->id_level)
-                                        <option value="{{ $levels->id }}" selected>{{ $levels->nama_level }}</option>
-                                    @else
-                                        <option value="{{ $levels->id }}">{{ $levels->nama_level }}</option>
+                                        <option value="{{ $levels->id }}" selected disabled>{{ $levels->nama_level }}</option>
                                     @endif
                                 @endforeach
                             </select>
-                            @if($errors->has('role'))
-                                <div class="text-danger">
-                                    <small>{{ $errors->first('role')}}</small>
-                                </div>
-                            @endif
-                        </div>
                     </div>
                 </fieldset>
-                <div class="form-group row">
-                    <div class="col-sm-2">
-
-                    </div>
-                    <div class="col-sm-10">
-                        <a href="{{ url('/adashboard/users') }}" class="btn btn-primary">Understand</a>
-                    </div>
+                <div class="form-group">
+                    <a href="{{ url('/adashboard/users') }}" class="btn btn-primary">Understand</a>
                 </div>
             </div>
         </div>

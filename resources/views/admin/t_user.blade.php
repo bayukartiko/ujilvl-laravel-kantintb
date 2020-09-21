@@ -25,7 +25,7 @@
 @section('konten')
     <h1 class="h3 mb-4 text-gray-800">Add Users Management</h1>
 
-    <form method="POST" action="/users/add">
+    <form method="POST" action="/users/add" enctype="multipart/form-data">
         <div class="card shadow mb-4">
             <!-- Card Header - Dropdown -->
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -39,7 +39,7 @@
                 <div class="form-group row">
                     <label for="username" class="col-sm-2 col-form-label">Username</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="username" name="username" placeholder="Enter Username" value="{{ old('username') }}">
+                        <input type="text" class="form-control" id="username" name="username" placeholder="Enter Username" value="{{ old('username') }}" required>
                         @if($errors->has('username'))
                             <div class="text-danger">
                                 <small>{{ $errors->first('username')}}</small>
@@ -56,14 +56,14 @@
                                     <a href=""><i class="far fa-fw fa-eye-slash" aria-hidden="true"></i></a>
                                 </span>
                             </div>
-                            <input type="password" class="form-control" placeholder="Enter Password" id="password" name="password" aria-label="Username" aria-describedby="basic-addon1">
+                            <input type="password" class="form-control" placeholder="Enter Password" id="password" name="password" aria-label="Username" aria-describedby="basic-addon1" required>
                         </div>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="name" class="col-sm-2 col-form-label">User Fullname</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter Fullname" value="{{ old('name') }}">
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter Fullname" value="{{ old('name') }}" required>
                         @if($errors->has('name'))
                             <div class="text-danger">
                                 <small>{{ $errors->first('name')}}</small>
@@ -75,13 +75,13 @@
                     <label for="genderRadiosMale" class="col-sm-2 col-form-label">Gender</label>
                     <div class="col-sm-10">
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="genderRadios" id="genderRadiosMale" value="male">
+                            <input class="form-check-input" type="radio" name="genderRadios" id="genderRadiosMale" value="male" required>
                             <label class="form-check-label" for="genderRadiosMale">
                               Male
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="genderRadios" id="genderRadiosFemale" value="female">
+                            <input class="form-check-input" type="radio" name="genderRadios" id="genderRadiosFemale" value="female" required>
                             <label class="form-check-label" for="genderRadiosFemale">
                               Female
                             </label>
@@ -94,9 +94,45 @@
                     </div>
                 </div>
                 <div class="form-group row">
+                    <label for="alamat" class="col-sm-2 col-form-label">Address</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" id="alamat" name="alamat" cols="10" rows="5" placeholder="Enter user address" required>{{ old('alamat') }}</textarea>
+                        @if($errors->has('alamat'))
+                            <div class="text-danger">
+                                <small>{{ $errors->first('alamat')}}</small>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="nohp" class="col-sm-2 col-form-label">Phone number</label>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control" id="nohp" name="nohp" cols="10" rows="5" placeholder="Enter phone number" value="{{ old('nohp') }}" required>
+                        @if($errors->has('nohp'))
+                            <div class="text-danger">
+                                <small>{{ $errors->first('nohp')}}</small>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="pp" class="col-sm-2 col-form-label">Profile Picture</label>
+                    <div class="col-sm-10">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="pp" name="pp" aria-describedby="inputGroupFileAddon01" required>
+                            <label class="custom-file-label" for="pp">Choose file</label>
+                        </div>
+                        @if($errors->has('pp'))
+                            <div class="text-danger">
+                                <small>{{ $errors->first('pp')}}</small>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+                <div class="form-group row">
                     <label for="role" class="col-sm-2 col-form-label">Role</label>
                     <div class="col-sm-10">
-                        <select name="role" id="role" class="form-control">
+                        <select name="role" id="role" class="form-control" required>
                             <option value="" selected disabled>> Select user role <</option>
                             @foreach ($level as $levels)
                                 <option value="{{ $levels->id }}">{{ $levels->nama_level }}</option>

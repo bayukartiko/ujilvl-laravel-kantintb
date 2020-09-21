@@ -80,10 +80,8 @@
                                     </select>
                             </div>
                         </div>
-                        <div class="col-sm-6">
-                            <div class="form-group row">
-                                <img src="{{ URL::asset('storage/'.$makanan->gambar) }}" class="img-fluid img-thumbnail rounded mx-auto">
-                            </div>
+                        <div class="col-sm-6 text-center">
+                            <img src="{{ URL::asset('storage/'.$makanan->gambar) }}" class="img-fluid img-thumbnail" style="display: inline-block;">
                         </div>
                     </div>
 

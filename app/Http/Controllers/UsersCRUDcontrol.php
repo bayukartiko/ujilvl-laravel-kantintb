@@ -6,6 +6,7 @@ use App\User;
 use App\Level;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class UsersCRUDcontrol extends Controller
 {
@@ -67,6 +68,10 @@ class UsersCRUDcontrol extends Controller
                     'password.required'=>'You cant leave Password field empty',
                     'name.required'=>'You cant leave Fullname field empty',
                     'genderRadios.required'=>'You cant leave Gender field empty',
+                    'alamat.required'=>'You cant leave addres field empty',
+                    'nohp.required'=>'You cant leave phone number field empty',
+                    'nohp.unique'=>'This phone number has been registered',
+                    'pp.required'=>'You cant leave profile picture field empty',
                     'role.required' =>'You cant leave User Role field empty'
                 ];
                 $rules = [
@@ -74,7 +79,10 @@ class UsersCRUDcontrol extends Controller
                         'password' => 'required',
                         'name' => 'required',
                         'genderRadios' => 'required',
-                        'role' => 'required',
+                        'alamat' => 'required',
+                        'nohp' => 'required|unique:users,nohp',
+                        'pp' => 'required',
+                        'role' => 'required'
                     ];
 
                 $this->validate($request, $rules, $rule_message);
@@ -84,6 +92,9 @@ class UsersCRUDcontrol extends Controller
                 'password' => bcrypt($request->password),
                 'nama_user' => $request->name,
                 'jenis_kelamin' => $request->genderRadios,
+                'alamat' => $request->alamat,
+                'avatar' => $request->file('pp')->store('avatars'),
+                'nohp' => $request->nohp,
                 'id_level' => $request->role
             ]);
 
@@ -135,28 +146,38 @@ class UsersCRUDcontrol extends Controller
             // validation
                 $rule_message = [
                     'username.required'=>'You cant leave Username field empty',
-                    'username.unique'=>'This username has been registered',
-                    'password.required'=>'You cant leave Password field empty',
                     'name.required'=>'You cant leave Fullname field empty',
                     'genderRadios.required'=>'You cant leave Gender field empty',
-                    'role.required' =>'You cant leave User Role field empty'
+                    'alamat.required'=>'You cant leave addres field empty',
+                    'nohp.required'=>'You cant leave phone number field empty'
                 ];
                 $rules = [
-                        'username' => 'required|unique:users,username',
-                        'password' => 'required',
+                        'username' => 'required',
                         'name' => 'required',
                         'genderRadios' => 'required',
-                        'role' => 'required',
+                        'alamat' => 'required',
+                        'nohp' => 'required'
                     ];
 
                 $this->validate($request, $rules, $rule_message);
 
+                if($request->file('pp')){
+                    if ($request->user->avatar) {
+                        Storage::delete($request->user->avatar);
+                        $gambar = $request->file('pp')->store('avatars');
+                    }
+                }else{
+                    $gambar = $user->avatar;
+                }
+
             $data = [
-                'username' => $request->username,
-                'password' => bcrypt($request->password),
+                'username' => $request->user->username,
                 'nama_user' => $request->name,
                 'jenis_kelamin' => $request->genderRadios,
-                'id_level' => $request->role
+                'alamat' => $request->alamat,
+                'avatar' => $gambar,
+                'nohp' => $request->nohp,
+                'id_level' => $request->user->id_level
             ];
 
             User::where('id', $user->id)->update($data);

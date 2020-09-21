@@ -101,8 +101,8 @@
                                 @endif
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <img src="{{ URL::asset('storage/'.$makanan->gambar) }}" class="img-fluid img-thumbnail">
+                    <div class="col-md-6 text-center">
+                        <img src="{{ URL::asset('storage/'.$makanan->gambar) }}" class="img-fluid img-thumbnail" style="display: inline-block;">
                     </div>
                 </div>
 

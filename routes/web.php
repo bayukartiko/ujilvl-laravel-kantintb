@@ -119,7 +119,7 @@ use Illuminate\Support\Facades\Route;
                 Route::get('/wdashboard/goods/detail/{food}', 'GoodsCRUDcontrol@wshow')->middleware('auth');
             // edit
                 Route::get('/wdashboard/goods/edit/{food}', 'GoodsCRUDcontrol@wedit')->middleware('auth');
-                Route::patch('/goods/update/{food}', 'GoodsCRUDcontrol@wupdate')->middleware('auth');
+                Route::patch('/wgoods/update/{food}', 'GoodsCRUDcontrol@wupdate')->middleware('auth');
             // delete
                 Route::get('/wdashboard/goods/delete/{food}', 'GoodsCRUDcontrol@wdestroy')->middleware('auth');
 
