@@ -6,6 +6,7 @@ use App\User;
 use App\Seat;
 use App\Food;
 use App\Level;
+use App\Rules\CurrentPassword;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -71,16 +72,28 @@ class WaiterBridgeControl extends Controller
             return redirect()->back();
         }
     }
+    public function password(){
+        $data = [
+            'profil' => Auth::user()
+        ];
+
+        if (Auth::user()->id_level == 2) {
+            return view('waiter/e_password', $data);
+        }else{
+            return redirect()->back();
+        }
+    }
+
 
     public function updateprofil(Request $request, User $user){
         if (Auth::user()->id_level == 2) {
             // validation
                 $rule_message = [
-                    'username.required'=>'You cant leave Username field empty',
-                    'name.required'=>'You cant leave Fullname field empty',
-                    'genderRadios.required'=>'You cant leave Gender field empty',
-                    'alamat.required'=>'You cant leave addres field empty',
-                    'nohp.required'=>'You cant leave phone number field empty'
+                    'username.required'=>'Please fill out this field',
+                    'name.required'=>'Please fill out this field',
+                    'genderRadios.required'=>'Please fill out this field',
+                    'alamat.required'=>'Please fill out this field',
+                    'nohp.required'=>'Please fill out this field'
                 ];
                 $rules = [
                         'username' => 'required',
@@ -114,6 +127,34 @@ class WaiterBridgeControl extends Controller
             User::where('id', Auth::user()->id)->update($data);
 
             return redirect()->back()->with('success', "Your profile was successfully updated !");
+        }else{
+            return redirect()->back();
+        }
+    }
+    public function updatepassword(Request $request, User $user){
+        if (Auth::user()->id_level == 2) {
+            // validation
+                $rule_message = [
+                    'cur_pass.required'=>'Please fill out this field',
+                    'new_pass.required'=>'Please fill out this field',
+                    'confirm_new_pass.required'=>'Please fill out this field',
+                    'confirm_new_pass.same'=>'New password confirmation doesn\'t not match with new password'
+                ];
+                $rules = [
+                        'cur_pass' => ['required', new CurrentPassword],
+                        'new_pass' => 'required',
+                        'confirm_new_pass' => 'required|same:new_pass'
+                    ];
+
+                $this->validate($request, $rules, $rule_message);
+
+            $data = [
+                'password' => bcrypt($request->new_pass)
+            ];
+
+            User::where('id', Auth::user()->id)->update($data);
+
+            return redirect()->back()->with('success', "Your password has been changed !");
         }else{
             return redirect()->back();
         }

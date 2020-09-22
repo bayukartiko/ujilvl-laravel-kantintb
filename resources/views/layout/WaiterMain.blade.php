@@ -134,6 +134,10 @@
                                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Profile
                                     </a>
+                                    <a class="dropdown-item" href="{{ url('/wdashboard/password') }}">
+                                        <i class="fas fa-key fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Change Password
+                                    </a>
 
                                     <div class="dropdown-divider"></div>
 
@@ -242,6 +246,42 @@
                     $('#show_hide_password input').attr('type', 'text');
                     $('#show_hide_password i').removeClass( "fa-eye-slash" );
                     $('#show_hide_password i').addClass( "fa-eye" );
+                }
+            });
+            $("#show_hide_cur_pass a").on('click', function(event) {
+                event.preventDefault();
+                if($('#show_hide_cur_pass input').attr("type") == "text"){
+                    $('#show_hide_cur_pass input').attr('type', 'password');
+                    $('#show_hide_cur_pass i').addClass( "fa-eye-slash" );
+                    $('#show_hide_cur_pass i').removeClass( "fa-eye" );
+                }else if($('#show_hide_cur_pass input').attr("type") == "password"){
+                    $('#show_hide_cur_pass input').attr('type', 'text');
+                    $('#show_hide_cur_pass i').removeClass( "fa-eye-slash" );
+                    $('#show_hide_cur_pass i').addClass( "fa-eye" );
+                }
+            });
+            $("#show_hide_new_pass a").on('click', function(event) {
+                event.preventDefault();
+                if($('#show_hide_new_pass input').attr("type") == "text"){
+                    $('#show_hide_new_pass input').attr('type', 'password');
+                    $('#show_hide_new_pass i').addClass( "fa-eye-slash" );
+                    $('#show_hide_new_pass i').removeClass( "fa-eye" );
+                }else if($('#show_hide_new_pass input').attr("type") == "password"){
+                    $('#show_hide_new_pass input').attr('type', 'text');
+                    $('#show_hide_new_pass i').removeClass( "fa-eye-slash" );
+                    $('#show_hide_new_pass i').addClass( "fa-eye" );
+                }
+            });
+            $("#show_hide_confirm_new_pass a").on('click', function(event) {
+                event.preventDefault();
+                if($('#show_hide_confirm_new_pass input').attr("type") == "text"){
+                    $('#show_hide_confirm_new_pass input').attr('type', 'password');
+                    $('#show_hide_confirm_new_pass i').addClass( "fa-eye-slash" );
+                    $('#show_hide_confirm_new_pass i').removeClass( "fa-eye" );
+                }else if($('#show_hide_confirm_new_pass input').attr("type") == "password"){
+                    $('#show_hide_confirm_new_pass input').attr('type', 'text');
+                    $('#show_hide_confirm_new_pass i').removeClass( "fa-eye-slash" );
+                    $('#show_hide_confirm_new_pass i').addClass( "fa-eye" );
                 }
             });
 

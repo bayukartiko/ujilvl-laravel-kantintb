@@ -118,7 +118,7 @@ class TransactionCRUDcontrol extends Controller
         if (Auth::user()->id_level == 3) {
             // validation
                 $rule_message = [
-                    'tunai.required'=>'You cant leave cash money field empty'
+                    'tunai.required'=>'Please fill out this field'
                 ];
                 $rules = [
                         'tunai' => 'required'

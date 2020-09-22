@@ -91,12 +91,12 @@ class GoodsCRUDcontrol extends Controller
             if (Auth::user()->id_level == 1) {
                 // validation
                     $rule_message = [
-                        'namamasakan.required'=>'You cant leave Food Name field empty',
-                        'tipemasakan.required'=>'You cant leave Type of Food field empty',
-                        'gambarmasakan.required'=>'You cant leave Food Image field empty',
-                        'hargamasakan.required'=>'You cant leave Food Price field empty',
-                        'stokmasakan.required'=>'You cant leave Food Stock field empty',
-                        'infomasakan.required'=>'You cant leave Food Information field empty'
+                        'namamasakan.required'=>'Please fill out this field',
+                        'tipemasakan.required'=>'Please fill out this field',
+                        'gambarmasakan.required'=>'Please fill out this field',
+                        'hargamasakan.required'=>'Please fill out this field',
+                        'stokmasakan.required'=>'Please fill out this field',
+                        'infomasakan.required'=>'Please fill out this field'
                     ];
                     $rules = [
                             'namamasakan' => 'required',
@@ -136,12 +136,12 @@ class GoodsCRUDcontrol extends Controller
             if (Auth::user()->id_level == 2) {
                 // validation
                     $rule_message = [
-                        'namamasakan.required'=>'You cant leave Food Name field empty',
-                        'tipemasakan.required'=>'You cant leave Type of Food field empty',
-                        'gambarmasakan.required'=>'You cant leave Food Image field empty',
-                        'hargamasakan.required'=>'You cant leave Food Price field empty',
-                        'stokmasakan.required'=>'You cant leave Food Stock field empty',
-                        'infomasakan.required'=>'You cant leave Food Information field empty'
+                        'namamasakan.required'=>'Please fill out this field',
+                        'tipemasakan.required'=>'Please fill out this field',
+                        'gambarmasakan.required'=>'Please fill out this field',
+                        'hargamasakan.required'=>'Please fill out this field',
+                        'stokmasakan.required'=>'Please fill out this field',
+                        'infomasakan.required'=>'Please fill out this field'
                     ];
                     $rules = [
                             'namamasakan' => 'required',
@@ -245,11 +245,11 @@ class GoodsCRUDcontrol extends Controller
             if (Auth::user()->id_level == 1) {
                 // validation
                     $rule_message = [
-                        'namamasakan.required'=>'You cant leave Food Name field empty',
-                        'tipemasakan.required'=>'You cant leave Type of Food field empty',
-                        'hargamasakan.required'=>'You cant leave Food Price field empty',
-                        'stokmasakan.required'=>'You cant leave Food Stock field empty',
-                        'infomasakan.required'=>'You cant leave Food Information field empty'
+                        'namamasakan.required'=>'Please fill out this field',
+                        'tipemasakan.required'=>'Please fill out this field',
+                        'hargamasakan.required'=>'Please fill out this field',
+                        'stokmasakan.required'=>'Please fill out this field',
+                        'infomasakan.required'=>'Please fill out this field'
                     ];
                     $rules = [
                             'namamasakan' => 'required',
@@ -303,12 +303,12 @@ class GoodsCRUDcontrol extends Controller
             if (Auth::user()->id_level == 2) {
             // validation
                 $rule_message = [
-                    'namamasakan.required'=>'You cant leave Food Name field empty',
-                    'tipemasakan.required'=>'You cant leave Type of Food field empty',
-                    'gambarmasakan.required'=>'You cant leave Food Image field empty',
-                    'hargamasakan.required'=>'You cant leave Food Price field empty',
-                    'stokmasakan.required'=>'You cant leave Food Stock field empty',
-                    'infomasakan.required'=>'You cant leave Food Information field empty'
+                    'namamasakan.required'=>'Please fill out this field',
+                    'tipemasakan.required'=>'Please fill out this field',
+                    'gambarmasakan.required'=>'Please fill out this field',
+                    'hargamasakan.required'=>'Please fill out this field',
+                    'stokmasakan.required'=>'Please fill out this field',
+                    'infomasakan.required'=>'Please fill out this field'
                 ];
                 $rules = [
                         'namamasakan' => 'required',

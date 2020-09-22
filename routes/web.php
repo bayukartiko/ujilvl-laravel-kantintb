@@ -40,7 +40,9 @@ use Illuminate\Support\Facades\Route;
             Route::get('/',  'AdminBridgeControl@main');
             Route::get('/adashboard', 'AdminBridgeControl@index')->middleware('auth');
             Route::get('/adashboard/profil', 'AdminBridgeControl@profil')->middleware('auth');
+            Route::get('/adashboard/password', 'AdminBridgeControl@password')->middleware('auth');
             Route::patch('/aprofil/update/{user}', 'AdminBridgeControl@updateprofil')->middleware('auth');
+            Route::patch('/apassword/update/{user}', 'AdminBridgeControl@updatepassword')->middleware('auth');
 
     // admin bridge makanan/goods controller
         // static controller
@@ -93,7 +95,9 @@ use Illuminate\Support\Facades\Route;
             Route::get('/',  'WaiterBridgeControl@main');
             Route::get('/wdashboard', 'WaiterBridgeControl@index')->middleware('auth');
             Route::get('/wdashboard/profil', 'WaiterBridgeControl@profil')->middleware('auth');
+            Route::get('/wdashboard/password', 'WaiterBridgeControl@password')->middleware('auth');
             Route::patch('/wprofil/update/{user}', 'WaiterBridgeControl@updateprofil')->middleware('auth');
+            Route::patch('/wpassword/update/{user}', 'WaiterBridgeControl@updatepassword')->middleware('auth');
 
     // waiter bridge order
         // static controller
@@ -134,7 +138,9 @@ use Illuminate\Support\Facades\Route;
             Route::get('/',  'KasirBridgeControl@main');
             Route::get('/kdashboard', 'KasirBridgeControl@index')->middleware('auth');
             Route::get('/kdashboard/profil', 'KasirBridgeControl@profil')->middleware('auth');
+            Route::get('/kdashboard/password', 'KasirBridgeControl@password')->middleware('auth');
             Route::patch('/kprofil/update/{user}', 'KasirBridgeControl@updateprofil')->middleware('auth');
+            Route::patch('/kpassword/update/{user}', 'KasirBridgeControl@updatepassword')->middleware('auth');
 
     // admin bridge makanan/goods controller
         // static controller

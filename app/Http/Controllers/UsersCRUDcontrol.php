@@ -63,16 +63,16 @@ class UsersCRUDcontrol extends Controller
         if (Auth::user()->id_level == 1) {
             // validation
                 $rule_message = [
-                    'username.required'=>'You cant leave Username field empty',
+                    'username.required'=>'Please fill out this field',
                     'username.unique'=>'This username has been registered',
-                    'password.required'=>'You cant leave Password field empty',
-                    'name.required'=>'You cant leave Fullname field empty',
-                    'genderRadios.required'=>'You cant leave Gender field empty',
-                    'alamat.required'=>'You cant leave addres field empty',
-                    'nohp.required'=>'You cant leave phone number field empty',
+                    'password.required'=>'Please fill out this field',
+                    'name.required'=>'Please fill out this field',
+                    'genderRadios.required'=>'Please fill out this field',
+                    'alamat.required'=>'Please fill out this field',
+                    'nohp.required'=>'Please fill out this field',
                     'nohp.unique'=>'This phone number has been registered',
-                    'pp.required'=>'You cant leave profile picture field empty',
-                    'role.required' =>'You cant leave User Role field empty'
+                    'pp.required'=>'Please fill out this field',
+                    'role.required' =>'Please fill out this field'
                 ];
                 $rules = [
                         'username' => 'required|unique:users,username',
@@ -145,11 +145,11 @@ class UsersCRUDcontrol extends Controller
         if (Auth::user()->id_level == 1) {
             // validation
                 $rule_message = [
-                    'username.required'=>'You cant leave Username field empty',
-                    'name.required'=>'You cant leave Fullname field empty',
-                    'genderRadios.required'=>'You cant leave Gender field empty',
-                    'alamat.required'=>'You cant leave addres field empty',
-                    'nohp.required'=>'You cant leave phone number field empty'
+                    'username.required'=>'Please fill out this field',
+                    'name.required'=>'Please fill out this field',
+                    'genderRadios.required'=>'Please fill out this field',
+                    'alamat.required'=>'Please fill out this field',
+                    'nohp.required'=>'Please fill out this field'
                 ];
                 $rules = [
                         'username' => 'required',

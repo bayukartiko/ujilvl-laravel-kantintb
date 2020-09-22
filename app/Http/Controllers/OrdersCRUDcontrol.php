@@ -79,10 +79,10 @@ class OrdersCRUDcontrol extends Controller
             // validation
                 $rule_message = [
                     // 'kodenuklir.required'=>'You cant leave oder code field empty',
-                    'tanggal.required'=>'You cant leave order date field empty',
-                    'nomeja.required'=>'You cant leave seat number field empty',
-                    'jumlah.required'=>'You cant leave order quantity field empty',
-                    'keterangan.required'=>'You cant leave order information field empty'
+                    'tanggal.required'=>'Please fill out this field',
+                    'nomeja.required'=>'Please fill out this field',
+                    'jumlah.required'=>'Please fill out this field',
+                    'keterangan.required'=>'Please fill out this field'
                 ];
                 $rules = [
                         // 'kodenuklir' => 'required',

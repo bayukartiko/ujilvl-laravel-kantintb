@@ -48,7 +48,7 @@ class SeatsCRUDcontrol extends Controller
         if (Auth::user()->id_level == 1) {
             // validation
                 $rule_message = [
-                    'nomeja.required'=>'You cant leave Seat Number field empty'
+                    'nomeja.required'=>'Please fill out this field'
                 ];
                 $rules = [
                         'nomeja' => 'required'
