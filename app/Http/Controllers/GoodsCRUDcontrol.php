@@ -305,7 +305,6 @@ class GoodsCRUDcontrol extends Controller
                 $rule_message = [
                     'namamasakan.required'=>'Please fill out this field',
                     'tipemasakan.required'=>'Please fill out this field',
-                    'gambarmasakan.required'=>'Please fill out this field',
                     'hargamasakan.required'=>'Please fill out this field',
                     'stokmasakan.required'=>'Please fill out this field',
                     'infomasakan.required'=>'Please fill out this field'
@@ -313,7 +312,6 @@ class GoodsCRUDcontrol extends Controller
                 $rules = [
                         'namamasakan' => 'required',
                         'tipemasakan' => 'required',
-                        'gambarmasakan' => 'required',
                         'hargamasakan' => 'required',
                         'stokmasakan' => 'required',
                         'infomasakan' => 'required'

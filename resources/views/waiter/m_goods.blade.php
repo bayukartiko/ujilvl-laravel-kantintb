@@ -126,6 +126,7 @@
                 <thead class="thead-dark">
                     <tr>
                         <th>No</th>
+                        <th>Food Image</th>
                         <th>Food Name</th>
                         <th>Type of Food</th>
                         <th>Price</th>
@@ -135,25 +136,29 @@
                 </thead>
                 <tbody>
                     @foreach ($makanan as $foods)
-                        <tr>
-                            <td scope="row">{{ $loop->iteration }}</td>
-                            <td>{{ $foods->nama_masakan }}</td>
-                            <td>{{ $foods->jenis_masakan }}</td>
-                            <td>{{ $foods->harga }}</td>
-                            <td>
-                                <button class="btn btn-outline-success">{{$foods->status_masakan}}</button>
-                            </td>
-                            <td>
-                                <a href="{{ url('/wdashboard/goods/detail/'.$foods->id) }}" class="btn btn-info">Detail</a>
-                                <a href="{{ url('/wdashboard/goods/edit/'.$foods->id) }}" class="btn btn-secondary">Edit</a>
-                                <a href="{{ url('/wdashboard/goods/delete/'.$foods->id) }}" class="btn btn-danger" onclick="return confirm('sure? you will delete data permanently.');">Delete</a>
-                            </td>
-                        </tr>
+                    <tr style="text-align: center; padding:10px;">
+                        <td scope="row" class="align-middle">{{ $loop->iteration }}</td>
+                        <td class="align-middle">
+                            <img src="{{ URL::asset('storage/'.$foods->gambar) }}" class="img-thumbnail" style="width: 125px; height: 125px;">
+                        </td>
+                        <td class="align-middle">{{ $foods->nama_masakan }}</td>
+                        <td class="align-middle">{{ $foods->jenis_masakan }}</td>
+                        <td class="align-middle">{{ $foods->harga }}</td>
+                        <td class="align-middle">
+                            <button class="btn btn-outline-success">{{$foods->status_masakan}}</button>
+                        </td>
+                        <td class="align-middle">
+                            <a href="{{ url('/wdashboard/goods/detail/'.$foods->id) }}" class="btn btn-info">Detail</a>
+                            <a href="{{ url('/wdashboard/goods/edit/'.$foods->id) }}" class="btn btn-secondary">Edit</a>
+                            <a href="{{ url('/wdashboard/goods/delete/'.$foods->id) }}" class="btn btn-danger" onclick="return confirm('sure? you will delete data permanently.');">Delete</a>
+                        </td>
+                    </tr>
                     @endforeach
                 </tbody>
                 <tfoot class="thead-dark">
                     <tr>
                         <th>No</th>
+                        <th>Food Image</th>
                         <th>Food Name</th>
                         <th>Type of Food</th>
                         <th>Price</th>

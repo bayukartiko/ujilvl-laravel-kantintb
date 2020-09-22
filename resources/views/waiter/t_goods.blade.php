@@ -25,7 +25,7 @@
 @section('konten')
     <h1 class="h3 mb-4 text-gray-800">Add Foods Management</h1>
 
-    <form method="POST" action="/goods/add">
+    <form method="POST" action="/wgoods/add" enctype="multipart/form-data">
         <div class="card shadow mb-4">
             <!-- Card Header - Dropdown -->
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -63,6 +63,20 @@
                     </div>
                 </div>
                 <div class="form-group row">
+                    <label for="gambarmasakan" class="col-sm-2 col-form-label">Food image</label>
+                    <div class="col-sm-10">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="gambarmasakan" name="gambarmasakan" aria-describedby="inputGroupFileAddon01">
+                            <label class="custom-file-label" for="gambarmasakan">Choose file</label>
+                        </div>
+                        @if($errors->has('gambarmasakan'))
+                            <div class="text-danger">
+                                <small>{{ $errors->first('gambarmasakan')}}</small>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+                <div class="form-group row">
                     <label for="hargamasakan" class="col-sm-2 col-form-label">Food Price</label>
                     <div class="col-sm-10">
                         <div class="input-group input-group">
@@ -79,16 +93,23 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="statusmasakan" class="col-sm-2 col-form-label">Food Status</label>
+                    <label for="stokmasakan" class="col-sm-2 col-form-label">Food Stock</label>
                     <div class="col-sm-10">
-                        <select name="statusmasakan" id="statusmasakan" class="form-control">
-                            <option value="" selected disabled>> Select food status <</option>
-                            <option value="available">available</option>
-                            <option value="run out">run out</option>
-                        </select>
-                        @if($errors->has('statusmasakan'))
+                        <input type="number" class="form-control" id="stokmasakan" name="stokmasakan" placeholder="Enter Food Stock" value="{{ old('stokmasakan') }}" min="0">
+                        @if($errors->has('stokmasakan'))
                             <div class="text-danger">
-                                <small>{{ $errors->first('statusmasakan')}}</small>
+                                <small>{{ $errors->first('stokmasakan')}}</small>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="infomasakan" class="col-sm-2 col-form-label">Food Information</label>
+                    <div class="col-sm-10">
+                        <textarea name="infomasakan" id="infomasakan" cols="30" rows="5" class="form-control" placeholder="Enter food information">{{ old('infomasakan') }}</textarea>
+                        @if($errors->has('infomasakan'))
+                            <div class="text-danger">
+                                <small>{{ $errors->first('infomasakan')}}</small>
                             </div>
                         @endif
                     </div>
