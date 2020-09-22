@@ -27,8 +27,8 @@ class OrdersCRUDcontrol extends Controller
             $detail_order = Orderdetail::all();
             $hitung_order = Order::all()->count();
             $order_detail = Orderdetail::all();
-            $hitung_order_selesai = Order::where('status_order', 'done')->count();
-            $hitung_order_belumselesai = Order::where('status_order', 'unfinished')->count();
+            $hitung_order_selesai = Order::where('status_order', 'received and has been paid')->count();
+            $hitung_order_belumselesai = Order::where('status_order', 'received and not yet paid')->count();
 
             $data = [
                 'order' => $order,
@@ -85,32 +85,46 @@ class OrdersCRUDcontrol extends Controller
                     'keterangan.required'=>'Please fill out this field'
                 ];
                 $rules = [
-                        // 'kodenuklir' => 'required',
-                        'tanggal' => 'required',
-                        'nomeja' => 'required',
-                        'jumlah' => 'required',
-                        'keterangan' => 'required'
-                    ];
+                    // 'kodenuklir' => 'required',
+                    'tanggal' => 'required',
+                    'nomeja' => 'required',
+                    'jumlah' => 'required',
+                    'keterangan' => 'required'
+                ];
 
                 $this->validate($request, $rules, $rule_message);
 
-            $order = Order::create([
-                'id_meja' => $request->nomeja,
-                'tanggal' => $request->tanggal,
-                'id_user' => $request->id_petugas,
-                'id_user' => $request->id_petugas,
-                'keterangan' => $request->keterangan,
-                'status_order' => 'unfinished'
-            ]);
+                $stok = Food::where('id', $request->namamasakan)->first();
+                $kurangin = $stok->stok - $request->jumlah;
+                // dd($kurangin);
+                if($request->jumlah > $stok->stok){
+                    return redirect()->back()->with('fail', "the number of quantity must not exceed the food stock, the current food stock amount is $stok->stok");
+                }else{
 
-            Orderdetail::create([
-                'id_order' => $order->id,
-                'id_masakan' => $request->namamasakan,
-                'harga' => $request->hargamasakan,
-                'jumlah' => $request->jumlah
-            ]);
+                    $order = Order::create([
+                        'id_meja' => $request->nomeja,
+                        'tanggal' => $request->tanggal,
+                        'id_user' => $request->id_petugas,
+                        'id_user' => $request->id_petugas,
+                        'keterangan' => $request->keterangan,
+                        'status_order' => 'received and not yet paid'
+                    ]);
 
-            return redirect('/wdashboard/orders')->with('success', "Data ->{$request->kodenuklir}<- has been successfully send !");
+                    Orderdetail::create([
+                        'id_order' => $order->id,
+                        'id_masakan' => $request->namamasakan,
+                        'harga' => $request->hargamasakan,
+                        'jumlah' => $request->jumlah
+                        ]);
+
+                        $datastok = [
+                        'stok' => $kurangin
+                    ];
+
+                    Food::where('id', $request->namamasakan)->update($datastok);
+
+                    return redirect('/wdashboard/orders')->with('success', "Order ->{$request->nomeja}<- has been successfully send !");
+                }
         }else{
             return redirect()->back();
         }

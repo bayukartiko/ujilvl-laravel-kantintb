@@ -34,6 +34,15 @@
             </div>
             <div class="card-body">
 
+                @if (session()->has('fail'))
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        {{ session()->get('fail') }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                @endif
+
                @csrf
 
                 {{-- <div class="form-group row">
@@ -92,7 +101,11 @@
                         <select name="namamasakan" id="namamasakan" class="form-control">
                             <option value="" selected disabled>> select food name <</option>
                             @foreach ($makanan as $foods)
-                                <option value="{{$foods->id}}">{{$foods->nama_masakan}}</option>
+                                @if ($foods->stok == 0)
+                                    <option value="{{$foods->id}}" disabled>{{$foods->nama_masakan}} | run out</option>
+                                @else
+                                    <option value="{{$foods->id}}">{{$foods->nama_masakan}}</option>
+                                @endif
                             @endforeach
                         </select>
                         @if($errors->has('namamasakan'))
@@ -102,26 +115,10 @@
                         @endif
                     </div>
                 </div>
-                {{-- <div class="form-group row">
-                    <label for="hargamasakan" class="col-sm-2 col-form-label">Food Price</label>
-                    <div class="col-sm-10">
-                        <div class="input-group input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroup-sizing-sm">Rp</span>
-                            </div>
-                            <input type="number" class="form-control" id="hargamasakan" name="hargamasakan" value="{{ old('hargamasakan') }}" readonly>
-                        </div>
-                        @if($errors->has('hargamasakan'))
-                            <div class="text-danger">
-                                <small>{{ $errors->first('hargamasakan')}}</small>
-                            </div>
-                        @endif
-                    </div>
-                </div> --}}
                 <div class="form-group row">
                     <label for="jumlah" class="col-sm-2 col-form-label">Order Quantity</label>
                     <div class="col-sm-10">
-                        <input type="number" name="jumlah" id="jumlah" class="form-control" placeholder="Enter order quantity">
+                        <input type="number" name="jumlah" id="jumlah" class="form-control" placeholder="Enter order quantity" value="{{ old('jumlah') }}">
                         @if($errors->has('jumlah'))
                             <div class="text-danger">
                                 <small>{{ $errors->first('jumlah')}}</small>
@@ -129,26 +126,10 @@
                         @endif
                     </div>
                 </div>
-                {{-- <div class="form-group row">
-                    <label for="totalharga" class="col-sm-2 col-form-label">Total price</label>
-                    <div class="col-sm-10">
-                        <div class="input-group input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroup-sizing-sm">Rp</span>
-                            </div>
-                            <input type="number" class="form-control" id="totalharga" name="totalharga" value="{{ old('totalharga') }}" readonly>
-                        </div>
-                        @if($errors->has('totalharga'))
-                            <div class="text-danger">
-                                <small>{{ $errors->first('totalharga')}}</small>
-                            </div>
-                        @endif
-                    </div>
-                </div> --}}
                 <div class="form-group row">
                     <label for="keterangan" class="col-sm-2 col-form-label">Order information</label>
                     <div class="col-sm-10">
-                        <textarea name="keterangan" id="keterangan" cols="30" rows="5" class="form-control" placeholder="Enter order information to cashier"></textarea>
+                        <textarea name="keterangan" id="keterangan" cols="30" rows="5" class="form-control" placeholder="Enter order information to cashier">{{ old('keterangan') }}</textarea>
                         @if($errors->has('keterangan'))
                             <div class="text-danger">
                                 <small>{{ $errors->first('keterangan')}}</small>

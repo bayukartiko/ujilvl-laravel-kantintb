@@ -122,7 +122,7 @@
                                     </a>
                                     <a class="dropdown-item" href="{{ url('/kdashboard/profil') }}">
                                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        Profile
+                                        Change Profile
                                     </a>
                                     <a class="dropdown-item" href="{{ url('/kdashboard/password') }}">
                                         <i class="fas fa-key fa-sm fa-fw mr-2 text-gray-400"></i>
