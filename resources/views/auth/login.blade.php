@@ -60,7 +60,7 @@
                     <form class="user" method="POST" action="{{ route('aksi.login') }}">
                         @csrf
                         <div class="form-group">
-                            <input type="text" id="username" name="username" class="form-control form-control-user {{ $errors->has('username') ? 'is-invalid' : '' }}" aria-describedby="emailHelp" placeholder="Enter Your Username" value="{{ old('username') }}">
+                            <input type="text" id="username" name="username" class="form-control form-control-user {{ $errors->has('username') ? 'is-invalid' : '' }}"  placeholder="Enter Your Username" value="{{ old('username') }}" required>
                             @if ($errors->has('username'))
                                 <div class="text-danger">
                                     <small>{{ $errors->first('username')}}</small>
@@ -69,7 +69,7 @@
                         </div>
 
                         <div class="form-group">
-                            <input type="password" id="password" name="password" class="form-control form-control-user input-password {{ $errors->has('password') ? 'is-invalid' : '' }}" placeholder="Enter Your Password">
+                            <input type="password" id="password" name="password" class="form-control form-control-user input-password {{ $errors->has('password') ? 'is-invalid' : '' }}" placeholder="Enter Your Password" required>
                             @if ($errors->has('password'))
                                 <div class="invalid-feedback">
                                     {{ $errors->first('password') }}

@@ -14,7 +14,10 @@ use Illuminate\Support\Facades\Storage;
 class AdminBridgeControl extends Controller
 {
     public function main(){
-        return view('homeweb');
+        $data = [
+            'user' => Auth::user()
+        ];
+        return view('homeweb', $data);
     }
 
     public function index(){

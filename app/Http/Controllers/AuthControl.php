@@ -16,12 +16,16 @@ class AuthControl extends Controller
         // dd(Auth::attempt(['username' => $request->username, 'password' => $request->password]));
 
         // validation
+            $rule_message = [
+                'username.required'=>'Please fill out this field',
+                'password.required'=>'Please fill out this field'
+            ];
             $rules = [
                     'username' => 'required',
                     'password' => 'required',
                 ];
 
-            $this->validate($request, $rules);
+            $this->validate($request, $rules, $rule_message);
 
         if (!Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
             return redirect()->back()->with('fail', "Wrong username or password !");
