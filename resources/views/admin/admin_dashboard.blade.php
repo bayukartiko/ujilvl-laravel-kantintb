@@ -22,232 +22,31 @@
 
 @section('konten')
     <h1 class="h3 mb-4 text-gray-800">Dashboard</h1>
-    <!-- Content Row user -->
-        <a href="{{ url('/adashboard/users') }}">
-            <h2 class="text-center">- User Data -</h2>
-        </a>
-        <div class="row justify-content-center">
-
-            <!-- semua admin -->
-                <div class="col-xl-3 col-md-6 mb-4">
-                    <div class="card border-left-primary shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Available Admin</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                {{$hitung_admin}}
-                            </div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-fw fa-2x text-gray-300 fa-user-tie"></i>
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-
-            <!-- semua waiter -->
-                <div class="col-xl-3 col-md-6 mb-4">
-                    <div class="card border-left-primary shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Available Waiter</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                {{$hitung_waiter}}
-                            </div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-fw fa-2x text-gray-300 fa-user-tie"></i>
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-
-            <!-- semua kasir -->
-                <div class="col-xl-3 col-md-6 mb-4">
-                    <div class="card border-left-primary shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Available Cashier</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                {{$hitung_kasir}}
-                            </div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-fw fa-2x text-gray-300 fa-user-tie"></i>
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-
-            <!-- semua owner -->
-                <div class="col-xl-3 col-md-6 mb-4">
-                    <div class="card border-left-primary shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Available Owner</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                {{$hitung_owner}}
-                            </div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-fw fa-2x text-gray-300 fa-user-tie"></i>
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-        </div>
-    <hr>
-    <!-- Content Row meja -->
-        <a href="{{ url('/adashboard/seats') }}">
-            <h2 class="text-center">- Seats Data -</h2>
-        </a>
-        <div class="row justify-content-center">
-
-            <!-- semua meja -->
-                <div class="col-xl-3 col-md-6 mb-4">
-                    <div class="card border-left-primary shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Available Seats</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                {{$hitung_meja}}
-                            </div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-fw fa-2x text-gray-300 fa-chair"></i>
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-
-            <!-- semua meja aktif -->
-                <div class="col-xl-3 col-md-6 mb-4">
-                    <div class="card border-left-primary shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Seats Activated</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                {{$hitung_meja_aktif}}
-                            </div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-fw fa-2x text-gray-300 fa-chair"></i>
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-
-            <!-- semua meja tidak aktif -->
-                <div class="col-xl-3 col-md-6 mb-4">
-                    <div class="card border-left-primary shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Seats Disabled</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                {{$hitung_meja_notaktif}}
-                            </div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-fw fa-2x text-gray-300 fa-chair"></i>
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-        </div>
-    <hr>
-    {{-- content row barang --}}
-        <a href="{{ url('/adashboard/goods') }}">
-            <h2 class="text-center">- Foods Data -</h2>
-        </a>
-        <div class="row justify-content-center">
-
-            <!-- food -->
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-primary shadow h-100 py-2">
+    <div class="row d-flex justify-content-center align-items-center" style="height:450px;">
+        <div class="w-80">
+            <div class="card border-left-primary shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Available Foods</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                            {{$hitung_makanan_tersedia}}
-                        </div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-fw fa-2x text-gray-300 fa-hamburger"></i>
-                    </div>
-                    </div>
-                </div>
-                </div>
-            </div>
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{{ Auth::user()->nama_user }}</div>
 
-            {{-- drink --}}
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-primary shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Available Drinks</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                            {{$hitung_minuman_tersedia}}
+                        </div>
+                        <div class="col-auto">
+                            {{-- <i class="fas fa-fw fa-2x text-gray-300 fa-cash-register"></i> --}}
+                            <img src="{{ URL::asset('storage/'.Auth::user()->avatar) }}" class="img-thumbnail" height="100" width="100">
                         </div>
                     </div>
-                    <div class="col-auto">
-                        <i class="fas fa-fw fa-2x text-gray-300 fa-coffee"></i>
-                    </div>
-                    </div>
                 </div>
-                </div>
-            </div>
-            <!-- food -->
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-danger shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Foods run out</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                            {{$hitung_makanan_habis}}
-                        </div>
+                <div class="card-footer">
+                    <div class="h5 mb-0 font-weight-bold text-gray-800 d-flex">
+                        <a href="{{ url('/adashboard/profil') }}" class="btn btn-outline-primary">Change Profile</a>
+                        &nbsp;|&nbsp;
+                        <a href="{{ url('/adashboard/password') }}" class="btn btn-outline-primary">Change Password</a>
+                        &nbsp;|&nbsp;
+                        <a href="#" class="btn btn-outline-danger" data-toggle="modal" data-target="#logoutModal">Logout</a>
                     </div>
-                    <div class="col-auto">
-                        <i class="fas fa-fw fa-2x text-gray-300 fa-hamburger"></i>
-                    </div>
-                    </div>
-                </div>
-                </div>
-            </div>
-
-            {{-- drink --}}
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-danger shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Drinks run out</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                            {{$hitung_minuman_habis}}
-                        </div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-fw fa-2x text-gray-300 fa-coffee"></i>
-                    </div>
-                    </div>
-                </div>
                 </div>
             </div>
         </div>
+    </div>
 @endsection

@@ -89,7 +89,7 @@
                 <thead class="thead-dark">
                     <tr>
                         <th>No</th>
-                        <th>Order Date</th>
+                        <th>Transaction Code</th>
                         <th>Waiter's Name</th>
                         <th>Seat Number</th>
                         <th>Food Name</th>
@@ -102,7 +102,11 @@
                         <tr>
                             <td scope="row">{{ $loop->iteration }}</td>
                             <td>
-                                {{$orders->tanggal}}
+                                @foreach ($transaksi as $transactions)
+                                    @if ($orders->id == $transactions->id_order)
+                                        {{$transactions->kode_transaksi}}
+                                    @endif
+                                @endforeach
                             </td>
                             <td>
                                 @foreach ($user as $users)
@@ -147,7 +151,7 @@
                 <tfoot class="thead-dark">
                     <tr>
                         <th>No</th>
-                        <th>Order Date</th>
+                        <th>Transaction Code</th>
                         <th>Waiter's Name</th>
                         <th>Seat Number</th>
                         <th>Food Name</th>

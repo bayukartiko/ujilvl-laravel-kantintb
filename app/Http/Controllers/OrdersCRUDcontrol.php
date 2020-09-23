@@ -37,7 +37,7 @@ class OrdersCRUDcontrol extends Controller
                 'hitung_order' => $hitung_order,
                 'order_selesai' => $hitung_order_selesai,
                 'order_belumselesai' => $hitung_order_belumselesai,
-                'makanan' => Food::where('status_masakan', 'available')
+                'makanan' => Food::all()
             ];
 
             return view('waiter/m_order', $data);
@@ -56,11 +56,11 @@ class OrdersCRUDcontrol extends Controller
             $meja = Seat::all();
             $makanan = Food::where('status_masakan', 'available')->get();
             $mentah = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-            $mentah_acak = substr(str_shuffle($mentah), 0, 15);
+            $mentah_acak = substr(str_shuffle($mentah), 0, 5);
             $data = [
                 'meja' => $meja,
                 'makanan' => $makanan,
-                'kode_nuklir' => $mentah_acak
+                'kode_nuklir' => "KTB".$mentah_acak."OR"
             ];
             return view('waiter/t_order', $data);
         }else{
@@ -102,6 +102,7 @@ class OrdersCRUDcontrol extends Controller
                 }else{
 
                     $order = Order::create([
+                        'kode_order' => $request->kode_order,
                         'id_meja' => $request->nomeja,
                         'tanggal' => $request->tanggal,
                         'id_user' => $request->id_petugas,
@@ -123,7 +124,7 @@ class OrdersCRUDcontrol extends Controller
 
                     Food::where('id', $request->namamasakan)->update($datastok);
 
-                    return redirect('/wdashboard/orders')->with('success', "Order ->{$request->nomeja}<- has been successfully send !");
+                    return redirect('/wdashboard/orders')->with('success', "Order ->{$request->kode_order}<- has been successfully send !");
                 }
         }else{
             return redirect()->back();

@@ -30,7 +30,8 @@
             <!-- Card Header - Dropdown -->
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary">Add New Order</h6>
-                <span>please complete this form</span>
+                <h6 class="m-0 font-weight-bold text-primary float-right">{{ $kode_nuklir }}</h6>
+                <input type="hidden" id="kode_order" name="kode_order" value="{{ $kode_nuklir }}">
             </div>
             <div class="card-body">
 

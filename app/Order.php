@@ -8,5 +8,5 @@ class Order extends Model
 {
     protected $table = "orders";
 
-    protected $fillable = ['id_meja', 'tanggal', 'id_user', 'keterangan', 'status_order'];
+    protected $fillable = ['kode_order', 'id_meja', 'tanggal', 'id_user', 'keterangan', 'status_order'];
 }

@@ -23,6 +23,7 @@ class TransactionCRUDcontrol extends Controller
             $user = User::all();
             $order = Order::all();
             $meja = Seat::all();
+            $transaksi = Transaction::all();
             $detail_order = Orderdetail::all();
             $hitung_order = Order::all()->count();
             $order_detail = Orderdetail::all();
@@ -37,6 +38,7 @@ class TransactionCRUDcontrol extends Controller
                 'hitung_order_selesai' => $hitung_order_selesai,
                 'order' => $order,
                 'meja' => $meja,
+                'transaksi' => $transaksi,
                 'detail_order' => $detail_order,
                 'hitung_order' => $hitung_order,
                 'order_selesai' => $hitung_order_selesai,
@@ -76,8 +78,7 @@ class TransactionCRUDcontrol extends Controller
      * @param  \App\Transaction  $transaction
      * @return \Illuminate\Http\Response
      */
-    public function show(Transaction $transaction, Order $order)
-    {
+    public function show(Transaction $transaction, Order $order){
         if (Auth::user()->id_level == 3) {
             $meja = Seat::all();
             $user = User::all();

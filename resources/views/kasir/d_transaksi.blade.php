@@ -36,7 +36,8 @@
                 <div class="card shadow mb-4">
                     <!-- Card Header - Dropdown -->
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold text-primary">Detail Order</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">Detail Order</h6> |
+                        <h6 class="m-0 font-weight-bold text-primary">{{ $order->kode_order }}</h6> |
                         <h6 class="m-0 font-weight-bold text-primary float-right">{{ $order->tanggal }}</h6>
                     </div>
                     <div class="card-body">
@@ -119,7 +120,7 @@
                 <div class="card shadow mb-4">
                     <!-- Card Header - Dropdown -->
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold text-primary">Pay here</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">Pay here</h6> | 
                         <h6 class="m-0 font-weight-bold text-primary float-right">{{ $kode_nuklir }}</h6>
                         <input type="hidden" id="kode_transaksi" name="kode_transaksi" value="{{ $kode_nuklir }}">
                     </div>

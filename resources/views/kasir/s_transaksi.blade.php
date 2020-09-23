@@ -33,8 +33,9 @@
                 <div class="card shadow mb-4">
                     <!-- Card Header - Dropdown -->
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold text-primary">Detail Order</h6>
-                        <h6 class="m-0 font-weight-bold text-primary float-right">{{ $transaksi->tanggal }}</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">Detail Order</h6> |
+                        <h6 class="m-0 font-weight-bold text-primary">{{ $order->kode_order }}</h6> | 
+                        <h6 class="m-0 font-weight-bold text-primary float-right">{{ $order->tanggal }}</h6>
                     </div>
                     <div class="card-body">
                         <fieldset disabled="disabled">
@@ -116,8 +117,9 @@
                 <div class="card shadow mb-4">
                     <!-- Card Header - Dropdown -->
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold text-primary">Already Paid</h6>
-                        <h6 class="m-0 font-weight-bold text-primary float-right">{{ $transaksi->kode_transaksi }}</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">Already Paid</h6> |
+                        <h6 class="m-0 font-weight-bold text-primary float-right">{{ $transaksi->kode_transaksi }}</h6> |
+                        <h6 class="m-0 font-weight-bold text-primary float-right">{{ $transaksi->tanggal }}</h6>
                     </div>
                     <div class="card-body">
                         <fieldset disabled="disabled">

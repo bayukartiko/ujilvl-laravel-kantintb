@@ -108,10 +108,10 @@
                 <thead class="thead-dark">
                     <tr>
                         <th>No</th>
-                        <th>Order date</th>
+                        <th>Order Code</th>
                         <th>Seat Number</th>
+                        <th>Food Name</th>
                         <th>Status</th>
-                        <th>Quantity</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -120,7 +120,7 @@
                         <tr>
                             <td scope="row">{{ $loop->iteration }}</td>
                             <td>
-                                {{$orders->tanggal}}
+                                {{$orders->kode_order}}
                             </td>
                             <td>
                                 @foreach ($meja as $seats)
@@ -130,16 +130,20 @@
                                 @endforeach
                             </td>
                             <td>
+                                @foreach ($detail_order as $orderdetails)
+                                    @if ($orders->id == $orderdetails->id_order)
+                                        @foreach ($makanan as $foods)
+                                            @if ($orderdetails->id_masakan == $foods->id)
+                                                {{$foods->nama_masakan}}
+                                            @endif
+                                        @endforeach
+                                    @endif
+                                @endforeach
+                            </td>
+                            <td>
                                 <button class="btn btn-outline-success">
                                     {{$orders->status_order}}
                                 </button>
-                            </td>
-                            <td>
-                                @foreach ($detail_order as $orderdetails)
-                                    @if ($orders->id == $orderdetails->id_order)
-                                        {{$orderdetails->jumlah}}
-                                    @endif
-                                @endforeach
                             </td>
                             <td>
                                 <a href="{{ url('/wdashboard/orders/detail/'.$orders->id) }}" class="btn btn-primary">Detail</a>
@@ -150,10 +154,10 @@
                 <tfoot class="thead-dark">
                     <tr>
                         <th>No</th>
-                        <th>Order date</th>
+                        <th>Order Code</th>
                         <th>Seat Number</th>
+                        <th>Food Name</th>
                         <th>Status</th>
-                        <th>Quantity</th>
                         <th>Action</th>
                     </tr>
                 </tfoot>
