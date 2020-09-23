@@ -21,6 +21,8 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
+// besok bikin pembaruan semua fitur di user kasir
+
 // login auth
     Route::get('/login', 'AuthControl@getLogin')->middleware('guest')->name('login');
     Route::post('/login', 'AuthControl@postLogin')->middleware('guest')->name('aksi.login');
@@ -151,7 +153,7 @@ use Illuminate\Support\Facades\Route;
                 Route::get('/kdashboard/addnewtransactions', 'TransactionCRUDcontrol@create')->middleware('auth');
                 Route::post('/transactions/add', 'TransactionCRUDcontrol@store')->middleware('auth');
             // detail
-                Route::get('/kdashboard/transactions/detail/{transaction}', 'TransactionCRUDcontrol@show')->middleware('auth');
+                Route::get('/kdashboard/transactions/detail/{order}', 'TransactionCRUDcontrol@show')->middleware('auth');
             // edit
                 Route::get('/kdashboard/transactions/payment/{order}', 'TransactionCRUDcontrol@edit')->middleware('auth');
                 Route::patch('/transactions/pay/{order}', 'TransactionCRUDcontrol@update')->middleware('auth');

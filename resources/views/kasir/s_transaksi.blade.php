@@ -16,7 +16,7 @@
                 <ol class="breadcrumb bg-transparent mt-3">
                     <li class="breadcrumb-item"><a href="{{ url('/kdashboard') }}">Dashboard</a></li>
                     <li class="breadcrumb-item"><a href="{{ url('/kdashboard/transactions') }}">Transactions</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Payment</li>
+                    <li class="breadcrumb-item active" aria-current="page">Detail Payment</li>
                 </ol>
             </nav>
 
@@ -25,10 +25,7 @@
 @section('konten')
     <h1 class="h3 mb-4 text-gray-800">Payment Management</h1>
 
-    <form method="POST" action="/transactions/pay/{{ $order->id }}">
-
         @csrf
-        @method('PATCH')
 
         <div class="row">
             <div class="col-md-7">
@@ -37,7 +34,7 @@
                     <!-- Card Header - Dropdown -->
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                         <h6 class="m-0 font-weight-bold text-primary">Detail Order</h6>
-                        <h6 class="m-0 font-weight-bold text-primary float-right">{{ $order->tanggal }}</h6>
+                        <h6 class="m-0 font-weight-bold text-primary float-right">{{ $transaksi->tanggal }}</h6>
                     </div>
                     <div class="card-body">
                         <fieldset disabled="disabled">
@@ -119,77 +116,72 @@
                 <div class="card shadow mb-4">
                     <!-- Card Header - Dropdown -->
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold text-primary">Pay here</h6>
-                        <h6 class="m-0 font-weight-bold text-primary float-right">{{ $kode_nuklir }}</h6>
-                        <input type="hidden" id="kode_transaksi" name="kode_transaksi" value="{{ $kode_nuklir }}">
+                        <h6 class="m-0 font-weight-bold text-primary">Already Paid</h6>
+                        <h6 class="m-0 font-weight-bold text-primary float-right">{{ $transaksi->kode_transaksi }}</h6>
                     </div>
                     <div class="card-body">
-
-                        @if (session()->has('fail'))
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                {{ session()->get('fail') }}
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                        @endif
-
-                        <div class="form-group">
-                            <label for="totalharga" class="form-label">Total Price</label>
-                            <div class="input-group input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="inputGroup-sizing-sm">Rp</span>
-                                </div>
-                                @foreach ($makanan as $foods)
-                                    @if ($foods->id == $orderdetail->id_masakan)
-                                        @php
-                                            $totalharga = $foods->harga*$orderdetail->jumlah ;
-                                        @endphp
-                                    @endif
-                                @endforeach
-                                <input type="number" class="form-control" id="totalharga" name="totalharga" value="<?= $totalharga ?>" disabled>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="tunai" class="form-label">Cash</label>
-                            <div class="input-group input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="inputGroup-sizing-sm">Rp</span>
-                                </div>
-                                <input type="number" class="form-control" id="tunai" name="tunai" value="{{ old('tunai') }}" placeholder="type the amount of your money here">
-                            </div>
-                            @if($errors->has('tunai'))
-                                <div class="text-danger">
-                                    <small>{{ $errors->first('tunai')}}</small>
+                        <fieldset disabled="disabled">
+                            @if (session()->has('fail'))
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    {{ session()->get('fail') }}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
                                 </div>
                             @endif
-                        </div>
 
+                            <div class="form-group">
+                                <label for="totalharga" class="form-label">Total Price</label>
+                                <div class="input-group input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroup-sizing-sm">Rp</span>
+                                    </div>
+                                    @foreach ($makanan as $foods)
+                                        @if ($foods->id == $orderdetail->id_masakan)
+                                            @php
+                                                $totalharga = $foods->harga*$orderdetail->jumlah ;
+                                            @endphp
+                                        @endif
+                                    @endforeach
+                                    <input type="number" class="form-control" id="totalharga" name="totalharga" value="<?= $totalharga ?>" disabled>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="tunai" class="form-label">Cash</label>
+                                <div class="input-group input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroup-sizing-sm">Rp</span>
+                                    </div>
+                                    <input type="number" class="form-control" id="tunai" name="tunai" value="{{ $transaksi->total_bayar }}" placeholder="type the amount of your money here">
+                                </div>
+                                @if($errors->has('tunai'))
+                                    <div class="text-danger">
+                                        <small>{{ $errors->first('tunai')}}</small>
+                                    </div>
+                                @endif
+                            </div>
+
+                            <div class="form-group">
+                                <label for="kembali" class="form-label">Cashback</label>
+                                <div class="input-group input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroup-sizing-sm">Rp</span>
+                                    </div>
+                                    <input type="number" class="form-control" id="kembali" name="kembali" value="{{ $transaksi->kembalian }}" readonly>
+                                </div>
+                                @if($errors->has('kembali'))
+                                    <div class="text-danger">
+                                        <small>{{ $errors->first('kembali')}}</small>
+                                    </div>
+                                @endif
+                            </div>
+                        </fieldset>
                         <div class="form-group">
-                            <label for="kembali" class="form-label">Cashback</label>
-                            <div class="input-group input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="inputGroup-sizing-sm">Rp</span>
-                                </div>
-                                <input type="number" class="form-control" id="kembali" name="kembali" value="{{ old('kembali') }}" readonly>
-                            </div>
-                            @if($errors->has('kembali'))
-                                <div class="text-danger">
-                                    <small>{{ $errors->first('kembali')}}</small>
-                                </div>
-                            @endif
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-sm-12 text-right">
-                                <a href="{{ url('/kdashboard/transactions') }}" class="btn btn-danger">Cancel</a>
-                                <button type="submit" class="btn btn-primary">Pay now</button>
-                            </div>
+                            <a href="{{ url('/kdashboard/transactions') }}" class="btn btn-primary">Understand</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </form>
 @endsection

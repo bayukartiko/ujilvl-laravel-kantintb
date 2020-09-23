@@ -26,10 +26,10 @@ class TransactionCRUDcontrol extends Controller
             $detail_order = Orderdetail::all();
             $hitung_order = Order::all()->count();
             $order_detail = Orderdetail::all();
-            $hitung_order_selesai = Order::where('status_order', 'done')->count();
-            $hitung_order_belumselesai = Order::where('status_order', 'unfinished')->count();
-            $hitung_order_masuk = Order::where('status_order', 'unfinished')->count();
-            $hitung_order_selesai = Order::where('status_order', 'done')->count();
+            $hitung_order_selesai = Order::where('status_order', 'received and has been paid')->count();
+            $hitung_order_belumselesai = Order::where('status_order', 'received and not yet paid')->count();
+            $hitung_order_masuk = Order::where('status_order', 'received and not yet paid')->count();
+            $hitung_order_selesai = Order::where('status_order', 'received and has been paid')->count();
 
             $data = [
                 'user' => $user,
@@ -76,9 +76,27 @@ class TransactionCRUDcontrol extends Controller
      * @param  \App\Transaction  $transaction
      * @return \Illuminate\Http\Response
      */
-    public function show(Transaction $transaction)
+    public function show(Transaction $transaction, Order $order)
     {
-        //
+        if (Auth::user()->id_level == 3) {
+            $meja = Seat::all();
+            $user = User::all();
+            $orderdetail = Orderdetail::where('id_order', $order->id)->first();
+            $transaksi = Transaction::where('id_order', $order->id)->first();
+            $makanan = Food::all();
+            $data = [
+                'meja' => $meja,
+                'user' => $user,
+                'order' => $order,
+                'transaksi' => $transaksi,
+                'makanan' => $makanan,
+                'orderdetail' => $orderdetail
+            ];
+
+            return view('kasir/s_transaksi', $data);
+        }else{
+            return redirect()->back();
+        }
     }
 
     /**
@@ -92,13 +110,17 @@ class TransactionCRUDcontrol extends Controller
             $meja = Seat::all();
             $user = User::all();
             $orderdetail = Orderdetail::where('id_order', $order->id)->first();
-            $makanan = Food::where('status_masakan', 'available')->get();
+            $makanan = Food::all();
+            $mentah = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            $mentah_acak = substr(str_shuffle($mentah), 0, 5);
             $data = [
                 'meja' => $meja,
                 'user' => $user,
                 'order' => $order,
                 'makanan' => $makanan,
                 'orderdetail' => $orderdetail,
+                'kode_nuklir' => "KTB".$mentah_acak."TR"
+                // 'kode_nuklir' => "KTB".date('dmyhis')."TR"
             ];
 
             return view('kasir/d_transaksi', $data);
@@ -118,26 +140,36 @@ class TransactionCRUDcontrol extends Controller
         if (Auth::user()->id_level == 3) {
             // validation
                 $rule_message = [
-                    'tunai.required'=>'Please fill out this field'
+                    'tunai.required'=>'Please fill out this field',
+                    'kembali.required'=>'Please fill out this field',
+                    'kembali.min'=>'your cash is not enough'
                 ];
                 $rules = [
-                        'tunai' => 'required'
+                        'tunai' => 'required',
+                        'kembali' => 'required|min:0'
                     ];
 
                 $this->validate($request, $rules, $rule_message);
 
-            Order::where('id', $order->id)->update([
-                'status_order' => 'done'
-            ]);
 
-            Transaction::create([
-                'id_user' => Auth::user()->id,
-                'id_order' => $order->id,
-                'tanggal' => date("Y/m/d"),
-                'total_bayar' => $request->tunai
-            ]);
+                if($request->kembali < 0){
+                    return redirect()->back()->with('fail', "your cash is not enough");
+                }else{
+                    Order::where('id', $order->id)->update([
+                        'status_order' => 'received and has been paid'
+                    ]);
 
-            return redirect('/kdashboard/transactions')->with('success', "Order ->{$request->namamasakan}<- has been successfully paid !");
+                    Transaction::create([
+                        'id_user' => Auth::user()->id,
+                        'id_order' => $order->id,
+                        'kode_transaksi' => $request->kode_transaksi,
+                        'tanggal' => date("Y/m/d"),
+                        'total_bayar' => $request->tunai,
+                        'kembalian' => $request->kembali
+                    ]);
+
+                    return redirect('/kdashboard/transactions')->with('success', "Order ->{$request->kode_transaksi}<- has been successfully paid !");
+                }
         }else{
             return redirect()->back();
         }

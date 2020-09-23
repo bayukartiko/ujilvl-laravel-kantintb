@@ -135,7 +135,11 @@
                                 </button>
                             </td>
                             <td>
-                                <a href="{{ url('/kdashboard/transactions/payment/'.$orders->id) }}" class="btn btn-primary">continue to payment</a>
+                                @if ($orders->status_order == "received and has been paid")
+                                    <a href="{{ url('/kdashboard/transactions/detail/'.$orders->id) }}" class="btn btn-primary">detail</a>
+                                @else
+                                    <a href="{{ url('/kdashboard/transactions/payment/'.$orders->id) }}" class="btn btn-primary">continue to payment</a>
+                                @endif
                             </td>
                         </tr>
                     @endforeach
