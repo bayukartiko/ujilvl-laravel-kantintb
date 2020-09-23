@@ -96,6 +96,17 @@
                 <!-- Divider -->
                 <hr class="sidebar-divider d-none d-md-block">
 
+                <!-- Nav Item - Dashboard -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('/wreport') }}">
+                        <i class="fas fa-fw fa-file-pdf"></i>
+                        <span>Report data</span>
+                    </a>
+                </li>
+
+                <!-- Divider -->
+                <hr class="sidebar-divider d-none d-md-block">
+
                 <!-- Sidebar Toggler (Sidebar) -->
                 <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
@@ -299,7 +310,44 @@
                     theme: 'bootstrap4'
                 });
 
+            $("#pilihan_report").on('change', function(){
+                $pilihan = $(this).val();
+                $(".hasil-c1").remove();
+                $(".hasil-c2").remove();
 
+                if($pilihan == "order"){
+                    $("#chain1").html(
+                        '<div class="hasil-c1">'+
+                            '<br>'+
+                            '<label for="kode_order" class="col-form-label">Order code</label>'+
+                            '<input type="text" name="kode_order" id="kode_order" class="form-control" placeholder="Enter the order code" required>'+
+                            '@if($errors->has("kode_order"))'+
+                                '<div class="text-danger">'+
+                                    '<small>{{ $errors->first("kode_order")}}</small>'+
+                                '</div>'+
+                            '@endif'+
+                        '</div>'
+                    );
+                }else{
+                    $("#chain1").html(
+                        '<div class="hasil-c1">'+
+                            '<br>'+
+                            '<label for="pilihan_makanan" class="col-form-label">Select Foods data</label>'+
+                            '<select name="pilihan_makanan" id="pilihan_makanan" class="form-control" required>'+
+                                '<option value="" selected disabled>> Select Foods data <</option>'+
+                                '<option value="all">all data</option>'+
+                                '<option value="food">Foods data</option>'+
+                                '<option value="drink">Drinks data</option>'+
+                            '</select>'+
+                            '@if($errors->has("pilihan_makanan"))'+
+                                '<div class="text-danger">'+
+                                    '<small>{{ $errors->first("pilihan_makanan")}}</small>'+
+                                '</div>'+
+                            '@endif'+
+                        '</div>'
+                    );
+                }
+            });
 
         });
     </script>

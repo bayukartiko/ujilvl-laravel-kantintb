@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminDataGoodsControl;
 use App\Http\Controllers\AdminDataMerchants;
+use App\Http\Controllers\WaiterBridgeControl;
 use Illuminate\Contracts\Cache\Store;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -92,6 +93,9 @@ use Illuminate\Support\Facades\Route;
                 Route::get('/adashboard/users/delete/{user}', 'UsersCRUDcontrol@destroy')->middleware('auth');
 
 // waiter
+    // report data
+        Route::get('/wreport', 'WaiterBridgeControl@wcetak')->middleware('auth');
+        Route::post('/wreport/print', 'WaiterBridgeControl@wcetak_pdf')->middleware('auth');
     // waiter bridge controller
         // static controller
             Route::get('/',  'WaiterBridgeControl@main');
@@ -149,14 +153,8 @@ use Illuminate\Support\Facades\Route;
             Route::get('/kdashboard/transactions', 'TransactionCRUDcontrol@index')->middleware('auth');
 
         // data transactions controller
-            // create
-                Route::get('/kdashboard/addnewtransactions', 'TransactionCRUDcontrol@create')->middleware('auth');
-                Route::post('/transactions/add', 'TransactionCRUDcontrol@store')->middleware('auth');
             // detail
                 Route::get('/kdashboard/transactions/detail/{order}', 'TransactionCRUDcontrol@show')->middleware('auth');
             // edit
                 Route::get('/kdashboard/transactions/payment/{order}', 'TransactionCRUDcontrol@edit')->middleware('auth');
                 Route::patch('/transactions/pay/{order}', 'TransactionCRUDcontrol@update')->middleware('auth');
-            // delete
-                Route::get('/kdashboard/transactions/delete/{transaction}', 'TransactionCRUDcontrol@destroy')->middleware('auth');
-

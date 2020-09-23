@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use Dompdf\Adapter\PDFLib;
+use PDF;
 use App\User;
 use App\Seat;
 use App\Food;
 use App\Level;
+use App\Order;
+use App\Orderdetail;
 use App\Rules\CurrentPassword;
+// use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -160,8 +165,80 @@ class WaiterBridgeControl extends Controller
         }
     }
 
+    public function wcetak(Request $request){
+        if (Auth::user()->id_level == 2) {
+            return view('waiter/wprint');
+        }else{
+            return redirect()->back();
+        }
+    }
     public function wcetak_pdf(Request $request){
+        if (Auth::user()->id_level == 2) {
+            if($request->pilihan_report == "order"){
+                $order = Order::where('kode_order', $request->kode_order)->first();
+                $user = User::all();
+                $meja = Seat::all();
+                $detail_order = Orderdetail::all();
+                $orderdetail = Orderdetail::where('id_order', $order->id)->first();
 
+                $data = [
+                    'panggilan' => "waiter",
+                    'tipe' => "order",
+                    'order' => $order,
+                    'user' => $user,
+                    'meja' => $meja,
+                    'detail_order' => $detail_order,
+                    'orderdetail' => $orderdetail,
+                    'makanan' => Food::all()
+                ];
+
+                // return view('cetak_print', $data);
+                $pdf = PDF::loadView('cetak_print', $data);
+                return $pdf->download('laporan-order');
+            }else{
+                if($request->pilihan_makanan == "all"){
+                    $makanan = Food::all();
+
+                    $data = [
+                        'panggilan' => "waiter",
+                        'makanan' => $makanan,
+                        'tipe' => 'makanan',
+                        'jenis' => 'all'
+                    ];
+
+                    $pdf = PDF::loadView('cetak_print', $data);
+                    return $pdf->download('laporan-order');
+
+                }elseif($request->pilihan_makanan == "food"){
+                    $makanan = Food::where('jenis_masakan', 'food')->get();
+
+                    $data = [
+                        'panggilan' => "waiter",
+                        'makanan' => $makanan,
+                        'tipe' => 'makanan',
+                        'jenis' => 'food'
+                    ];
+
+                    $pdf = PDF::loadView('cetak_print', $data);
+                    return $pdf->download('laporan-order');
+
+                }elseif($request->pilihan_makanan == "drink"){
+                    $makanan = Food::where('jenis_masakan', 'drink')->get();
+
+                    $data = [
+                        'panggilan' => "waiter",
+                        'makanan' => $makanan,
+                        'tipe' => 'makanan',
+                        'jenis' => 'drink'
+                    ];
+
+                    $pdf = PDF::loadView('cetak_print', $data);
+                    return $pdf->download('laporan-order');
+                }
+            }
+        }else{
+            return redirect()->back();
+        }
     }
 
 }
