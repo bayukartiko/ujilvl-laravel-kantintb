@@ -234,7 +234,7 @@ class WaiterBridgeControl extends Controller
 
                     $pdf = PDF::loadView('cetak_print', $data);
                     return $pdf->download('laporan-order');
-                }
+                } 
             }
         }else{
             return redirect()->back();
