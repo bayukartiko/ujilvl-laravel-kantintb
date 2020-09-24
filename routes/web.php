@@ -139,6 +139,9 @@ use Illuminate\Support\Facades\Route;
 
 
 // kasir
+    // report data
+        Route::get('/kreport', 'KasirBridgeControl@kcetak')->middleware('auth');
+        Route::post('/kreport/print', 'KasirBridgeControl@kcetak_pdf')->middleware('auth');
     // kasir bridge controller
         // static controller
             Route::get('/',  'KasirBridgeControl@main');

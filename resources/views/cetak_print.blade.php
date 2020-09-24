@@ -114,6 +114,70 @@
             </table>
 
         @endif
+    @elseif($panggilan == "kasir")
+        <h2 class="text-center">Transaction Data</h2>
+        <p class="text-center text-muted">{{ $transaksi->kode_transaksi }}</p>
+
+        <table class="table table-striped table-bordered table-hover table-sm" id="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th>No</th>
+                    <th>Transaction Code</th>
+                    <th>Waiter's Name</th>
+                    <th>Seat Number</th>
+                    <th>Food Name</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td scope="row">1</td>
+                    <td>
+                        {{$transaksi->kode_transaksi}}
+                    </td>
+                    <td>
+                        @foreach ($user as $users)
+                            @if ($transaksi->id_user == $users->id)
+                                {{$users->nama_user}}
+                            @endif
+                        @endforeach
+                    </td>
+                    <td>
+                        @foreach ($meja as $seats)
+                            @if ($order->id_meja == $seats->id)
+                                {{$seats->no_meja}}
+                            @endif
+                        @endforeach
+                    </td>
+                    <td>
+                        {{-- @foreach ($detail_order as $orderdetails) --}}
+                            @foreach ($makanan as $foods)
+                                @if ($transaksi->id_order == $orderdetail->id_order)
+                                    @if ($orderdetail->id_masakan == $foods->id)
+                                        {{$foods->nama_masakan}}
+                                    @endif
+                                @endif
+                            @endforeach
+                        {{-- @endforeach --}}
+                    </td>
+                    <td>
+                        <button class="btn btn-outline-success">
+                            {{$order->status_order}}
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot class="thead-dark">
+                <tr>
+                    <th>No</th>
+                    <th>Transaction Code</th>
+                    <th>Waiter's Name</th>
+                    <th>Seat Number</th>
+                    <th>Food Name</th>
+                    <th>Status</th>
+                </tr>
+            </tfoot>
+        </table>
     @endif
 
     <!-- Optional JavaScript -->

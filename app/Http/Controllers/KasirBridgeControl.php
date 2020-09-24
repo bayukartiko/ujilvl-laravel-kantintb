@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use Dompdf\Adapter\PDFLib;
+use PDF;
 use App\User;
 use App\Seat;
 use App\Food;
-use App\Order;
 use App\Level;
+use App\Order;
 use App\Orderdetail;
 use App\Rules\CurrentPassword;
+use App\Transaction;
+// use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -150,7 +154,41 @@ class KasirBridgeControl extends Controller
         }
     }
 
+    public function kcetak(Request $request){
+        if (Auth::user()->id_level == 3) {
+            return view('kasir/kprint');
+        }else{
+            return redirect()->back();
+        }
+    }
     public function kcetak_pdf(Request $request){
+        if (Auth::user()->id_level == 3) {
+            if($request->pilihan_report == "transaksi"){
+                $transaction = Transaction::where('kode_transaksi', $request->kode_transaksi)->first();
+                $user = User::all();
+                $meja = Seat::all();
+                $transaksi = Transaction::all();
+                $order = Order::where('id', $transaction->id_order)->first();
+                $orderdetail = Orderdetail::where('id_order', $transaction->id_order)->first();
 
+                $data = [
+                    'panggilan' => "kasir",
+                    'tipe' => "transaksi",
+                    'transaksi' => $transaction,
+                    'user' => $user,
+                    'meja' => $meja,
+                    'order' => $order,
+                    'detail_order' => $orderdetail,
+                    'orderdetail' => $orderdetail,
+                    'makanan' => Food::all()
+                ];
+
+                // return view('cetak_print', $data);
+                $pdf = PDF::loadView('cetak_print', $data);
+                return $pdf->download('laporan-transaksi');
+            }
+        }else{
+            return redirect()->back();
+        }
     }
 }

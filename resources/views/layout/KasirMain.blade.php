@@ -86,6 +86,17 @@
                 <!-- Divider -->
                 <hr class="sidebar-divider d-none d-md-block">
 
+                <!-- Nav Item - Dashboard -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('/kreport') }}">
+                        <i class="fas fa-fw fa-file-pdf"></i>
+                        <span>Report data</span>
+                    </a>
+                </li>
+
+                <!-- Divider -->
+                <hr class="sidebar-divider d-none d-md-block">
+
                 <!-- Sidebar Toggler (Sidebar) -->
                 <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
@@ -297,6 +308,27 @@
                     // allowClear: true,
                     closeOnSelect: true,
                     theme: 'bootstrap4'
+                });
+
+                $("#pilihan_report").on('change', function(){
+                    $pilihan = $(this).val();
+                    $(".hasil-c1").remove();
+                    $(".hasil-c2").remove();
+
+                    if($pilihan == "transaksi"){
+                        $("#chain1").html(
+                            '<div class="hasil-c1">'+
+                                '<br>'+
+                                '<label for="kode_transaksi" class="col-form-label">Transaction code</label>'+
+                                '<input type="text" name="kode_transaksi" id="kode_transaksi" class="form-control" placeholder="Enter the Transaction code" required>'+
+                                '@if($errors->has("kode_transaksi"))'+
+                                    '<div class="text-danger">'+
+                                        '<small>{{ $errors->first("kode_transaksi")}}</small>'+
+                                    '</div>'+
+                                '@endif'+
+                            '</div>'
+                        );
+                    }
                 });
 
         });
