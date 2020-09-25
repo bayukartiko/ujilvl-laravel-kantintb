@@ -10,6 +10,7 @@ use App\Food;
 use App\Level;
 use App\Order;
 use App\Orderdetail;
+use App\Transaction;
 use App\Rules\CurrentPassword;
 // use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Request;
@@ -17,15 +18,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 
-class WaiterBridgeControl extends Controller
+class OwnerBridgeControl extends Controller
 {
 
     public function main(){
-        // if (Auth::user()->id_level == 2) {
-        //     return redirect()->back();
-        // }else{
-        //     return view('homeweb');
-        // }
         return view('homeweb');
     }
 
@@ -57,8 +53,8 @@ class WaiterBridgeControl extends Controller
             'food' => $food
         ];
 
-        if (Auth::user()->id_level == 2) {
-            return view('waiter/waiter_dashboard', $data);
+        if (Auth::user()->id_level == 4) {
+            return view('owner/owner_dashboard', $data);
         }else{
             return redirect()->back();
         }
@@ -71,8 +67,8 @@ class WaiterBridgeControl extends Controller
             'level' => Level::all()
         ];
 
-        if (Auth::user()->id_level == 2) {
-            return view('waiter/e_profil', $data);
+        if (Auth::user()->id_level == 4) {
+            return view('owner/e_profil', $data);
         }else{
             return redirect()->back();
         }
@@ -82,8 +78,8 @@ class WaiterBridgeControl extends Controller
             'profil' => Auth::user()
         ];
 
-        if (Auth::user()->id_level == 2) {
-            return view('waiter/e_password', $data);
+        if (Auth::user()->id_level == 4) {
+            return view('owner/e_password', $data);
         }else{
             return redirect()->back();
         }
@@ -91,7 +87,7 @@ class WaiterBridgeControl extends Controller
 
 
     public function updateprofil(Request $request, User $user){
-        if (Auth::user()->id_level == 2) {
+        if (Auth::user()->id_level == 4) {
             // validation
                 $rule_message = [
                     'username.required'=>'Please fill out this field',
@@ -137,7 +133,7 @@ class WaiterBridgeControl extends Controller
         }
     }
     public function updatepassword(Request $request, User $user){
-        if (Auth::user()->id_level == 2) {
+        if (Auth::user()->id_level == 4) {
             // validation
                 $rule_message = [
                     'cur_pass.required'=>'Please fill out this field',
@@ -165,15 +161,15 @@ class WaiterBridgeControl extends Controller
         }
     }
 
-    public function wcetak(Request $request){
-        if (Auth::user()->id_level == 2) {
-            return view('waiter/wprint');
+    public function ocetak(Request $request){
+        if (Auth::user()->id_level == 4) {
+            return view('owner/oprint');
         }else{
             return redirect()->back();
         }
     }
-    public function wcetak_pdf(Request $request){
-        if (Auth::user()->id_level == 2) {
+    public function ocetak_pdf(Request $request){
+        if (Auth::user()->id_level == 4) {
             if($request->pilihan_report == "order"){
                 $order = Order::where('kode_order', $request->kode_order)->first();
                 $user = User::all();
@@ -182,7 +178,7 @@ class WaiterBridgeControl extends Controller
                 $orderdetail = Orderdetail::where('id_order', $order->id)->first();
 
                 $data = [
-                    'panggilan' => "waiter",
+                    'panggilan' => "owner",
                     'tipe' => "order",
                     'order' => $order,
                     'user' => $user,
@@ -195,12 +191,110 @@ class WaiterBridgeControl extends Controller
                 // return view('cetak_print', $data);
                 $pdf = PDF::loadView('cetak_print', $data);
                 return $pdf->download('laporan-order');
-            }else{
+            }elseif($request->pilihan_report == "transaksi"){
+                $transaction = Transaction::where('kode_transaksi', $request->kode_transaksi)->first();
+                $user = User::all();
+                $meja = Seat::all();
+                $transaksi = Transaction::all();
+                $order = Order::where('id', $transaction->id_order)->first();
+                $orderdetail = Orderdetail::where('id_order', $transaction->id_order)->first();
+
+                $data = [
+                    'panggilan' => "kasir",
+                    'tipe' => "transaksi",
+                    'transaksi' => $transaction,
+                    'user' => $user,
+                    'meja' => $meja,
+                    'order' => $order,
+                    'detail_order' => $orderdetail,
+                    'orderdetail' => $orderdetail,
+                    'makanan' => Food::all()
+                ];
+
+                // return view('cetak_print', $data);
+                $pdf = PDF::loadView('cetak_print', $data);
+                return $pdf->download('laporan-transaksi');
+
+            }elseif($request->pilihan_report == "user"){
+                if($request->pilihan_user == "all"){
+                    $user = User::all();
+                    $level = Level::all();
+
+                    $data = [
+                        'panggilan' => "owner",
+                        'user' => $user,
+                        'tipe' => 'user',
+                        'level' => $level,
+                        'jenis' => 'all'
+                    ];
+
+                    $pdf = PDF::loadView('cetak_print', $data);
+                    return $pdf->download('laporan-data-user');
+
+                }elseif($request->pilihan_user == "admin"){
+                    $user = User::where('id_level', 1)->get();
+                    $level = Level::all();
+
+                    $data = [
+                        'panggilan' => "owner",
+                        'user' => $user,
+                        'tipe' => 'user',
+                        'level' => $level,
+                        'jenis' => 'admin'
+                    ];
+
+                    $pdf = PDF::loadView('cetak_print', $data);
+                    return $pdf->download('laporan-data-user-admin');
+
+                }elseif($request->pilihan_user == "waiter"){
+                    $user = User::where('id_level', 2)->get();
+                    $level = Level::all();
+
+                    $data = [
+                        'panggilan' => "owner",
+                        'user' => $user,
+                        'tipe' => 'user',
+                        'level' => $level,
+                        'jenis' => 'waiter'
+                    ];
+
+                    $pdf = PDF::loadView('cetak_print', $data);
+                    return $pdf->download('laporan-data-user-waiter');
+                }elseif($request->pilihan_user == "kasir"){
+                    $user = User::where('id_level', 3)->get();
+                    $level = Level::all();
+
+                    $data = [
+                        'panggilan' => "owner",
+                        'user' => $user,
+                        'tipe' => 'user',
+                        'level' => $level,
+                        'jenis' => 'kasir'
+                    ];
+
+                    $pdf = PDF::loadView('cetak_print', $data);
+                    return $pdf->download('laporan-data-user-kasir');
+                }else{
+                    $user = User::where('id_level', 4)->get();
+                    $level = Level::all();
+
+                    $data = [
+                        'panggilan' => "owner",
+                        'user' => $user,
+                        'tipe' => 'user',
+                        'level' => $level,
+                        'jenis' => 'owner'
+                    ];
+
+                    $pdf = PDF::loadView('cetak_print', $data);
+                    return $pdf->download('laporan-data-user-owner');
+                }
+            }elseif($request->pilihan_report == "food"){
                 if($request->pilihan_makanan == "all"){
                     $makanan = Food::all();
 
                     $data = [
-                        'panggilan' => "waiter",
+                        'panggilan' => "owner",
                         'makanan' => $makanan,
                         'tipe' => 'makanan',
                         'jenis' => 'all'
@@ -213,7 +307,7 @@ class WaiterBridgeControl extends Controller
                     $makanan = Food::where('jenis_masakan', 'food')->get();
 
                     $data = [
-                        'panggilan' => "waiter",
+                        'panggilan' => "owner",
                         'makanan' => $makanan,
                         'tipe' => 'makanan',
                         'jenis' => 'food'
@@ -226,7 +320,7 @@ class WaiterBridgeControl extends Controller
                     $makanan = Food::where('jenis_masakan', 'drink')->get();
 
                     $data = [
-                        'panggilan' => "waiter",
+                        'panggilan' => "owner",
                         'makanan' => $makanan,
                         'tipe' => 'makanan',
                         'jenis' => 'drink'
@@ -234,6 +328,46 @@ class WaiterBridgeControl extends Controller
 
                     $pdf = PDF::loadView('cetak_print', $data);
                     return $pdf->download('laporan-semua-data-minuman');
+                }
+            }else{
+                if($request->pilihan_meja == "all"){
+                    $meja = Seat::withTrashed()->get();
+
+                    $data = [
+                        'panggilan' => "owner",
+                        'meja' => $meja,
+                        'tipe' => 'meja',
+                        'jenis' => 'all'
+                    ];
+
+                    $pdf = PDF::loadView('cetak_print', $data);
+                    return $pdf->download('laporan-data-semua-tempatduduk');
+
+                }elseif($request->pilihan_meja == "used"){
+                    $meja = Seat::all();
+
+                    $data = [
+                        'panggilan' => "owner",
+                        'meja' => $meja,
+                        'tipe' => 'meja',
+                        'jenis' => 'digunakan'
+                    ];
+
+                    $pdf = PDF::loadView('cetak_print', $data);
+                    return $pdf->download('laporan-data-tempatduduk-yang-sedang-digunakan');
+
+                }elseif($request->pilihan_meja == "unused"){
+                    $meja = Seat::onlyTrashed()->get();
+
+                    $data = [
+                        'panggilan' => "owner",
+                        'meja' => $meja,
+                        'tipe' => 'meja',
+                        'jenis' => 'tidakdigunakan'
+                    ];
+
+                    $pdf = PDF::loadView('cetak_print', $data);
+                    return $pdf->download('laporan-data-tempatduduk-yang-tidak-digunakan');
                 }
             }
         }else{

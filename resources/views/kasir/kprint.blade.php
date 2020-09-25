@@ -1,6 +1,6 @@
 @extends('layout/KasirMain')
 
-@section('title', 'Dashboard')
+@section('title', 'Generate Report - Cashier')
 
 @section('topbar')
 

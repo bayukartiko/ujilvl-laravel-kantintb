@@ -1,6 +1,6 @@
-@extends('layout/WaiterMain')
+@extends('layout/OwnerMain')
 
-@section('title', 'Generate Report - Waiter')
+@section('title', 'Generate Report - Owner')
 
 @section('topbar')
 
@@ -14,7 +14,7 @@
         <!-- Topbar Breadcrumb -->
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb bg-transparent mt-3">
-                    <li class="breadcrumb-item"><a href="{{ url('/wdashboard') }}">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="{{ url('/odashboard') }}">Dashboard</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Report data</li>
                 </ol>
             </nav>
@@ -25,7 +25,7 @@
     <div class="row d-flex justify-content-center align-items-center" style="height:500px;">
         <div class="w-90" style="width: 50%">
             <div class="card border-left-primary shadow h-100">
-                <form method="POST" action="/wreport/print" enctype="multipart/form-data">
+                <form method="POST" action="/oreport/print" enctype="multipart/form-data">
 
                     @csrf
 
@@ -37,8 +37,11 @@
                             <label for="pilihan_report" class="col-form-label">Select data</label>
                                 <select name="pilihan_report" id="pilihan_report" class="form-control" required>
                                     <option value="" selected disabled>> Select Data <</option>
-                                    <option value="order">Order data</option>
-                                    <option value="food">Food data</option>
+                                    <option value="user">Users data</option>
+                                    <option value="meja">Seats data</option>
+                                    <option value="food">Foods data</option>
+                                    <option value="order">Orders data</option>
+                                    <option value="transaksi">Transactions data</option>
                                 </select>
                                 @if($errors->has('pilihan_report'))
                                     <div class="text-danger">

@@ -161,3 +161,17 @@ use Illuminate\Support\Facades\Route;
             // edit
                 Route::get('/kdashboard/transactions/payment/{order}', 'TransactionCRUDcontrol@edit')->middleware('auth');
                 Route::patch('/transactions/pay/{order}', 'TransactionCRUDcontrol@update')->middleware('auth');
+
+// owner
+    // report data
+        Route::get('/oreport', 'OwnerBridgeControl@ocetak')->middleware('auth');
+        Route::post('/oreport/print', 'OwnerBridgeControl@ocetak_pdf')->middleware('auth');
+
+    // waiter bridge controller
+        // static controller
+            Route::get('/',  'OwnerBridgeControl@main');
+            Route::get('/odashboard', 'OwnerBridgeControl@index')->middleware('auth');
+            Route::get('/odashboard/profil', 'OwnerBridgeControl@profil')->middleware('auth');
+            Route::get('/odashboard/password', 'OwnerBridgeControl@password')->middleware('auth');
+            Route::patch('/oprofil/update/{user}', 'OwnerBridgeControl@updateprofil')->middleware('auth');
+            Route::patch('/opassword/update/{user}', 'OwnerBridgeControl@updatepassword')->middleware('auth');
